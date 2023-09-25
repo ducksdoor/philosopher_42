@@ -1,0 +1,9 @@
+25Septiembre:
+	- Creo la estructura. (git, make, .h, readme ...)
+	- Primeras pruebas con las funciones de tiempo.
+		- Creo un cronómetro.
+				- Con usleep le doy un retardo, de tal forma que podria controlar cuanto tiempo tardar en comer por ejemplo...
+		- Empiezo a usar el tema de los hilos, my_thread_function().
+			- con usleep, los cronos y con los hilos, consigo escribir desde dos procesos.
+				- Veo que funciona pero no tengo claro como ... que fantasía.
+					- he roto todo y he desesperado antes de conseguir arreglarlo...
