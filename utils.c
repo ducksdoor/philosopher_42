@@ -47,15 +47,16 @@ void	ft_simply_crono(void)
 	}
 }
 
-void	init(t_philo *philo, int argc, char **argv)
+void	init(t_list *philo_list, int argc, char **argv)
 {
-	philo->n_philosophers = ft_atoi(argv[1]);
-	philo->time_to_die = ft_atoi(argv[2]);
-	philo->time_to_eat = ft_atoi(argv[3]);
-	philo->time_to_sleep = ft_atoi(argv[4]);
-	philo->n_times_each_philosopher_must_eat = 0;
+	philo_list->philo = malloc(sizeof(t_philo));
+	philo_list->philo->n_philosophers = ft_atoi(argv[1]);
+	philo_list->philo->time_to_die = ft_atoi(argv[2]);
+	philo_list->philo->time_to_eat = ft_atoi(argv[3]);
+	philo_list->philo->time_to_sleep = ft_atoi(argv[4]);
+	philo_list->philo->n_times_each_philosopher_must_eat = 0;
 	if (argc == 6)
-		philo->n_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+		philo_list->philo->n_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 }
 
 int	ft_atoi(char *str)

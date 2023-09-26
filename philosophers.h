@@ -19,8 +19,16 @@
 #include <pthread.h>
 #include <sys/time.h>
 
+typedef struct s_list
+{
+	struct s_philo	*philo;
+	struct s_list	*next;
+	struct s_list	*pre;
+}					t_list;
+
 typedef struct s_philo
 {
+	int	name;
 	int	n_philosophers;
 	int	time_to_die;
 	int	time_to_eat;
@@ -29,10 +37,12 @@ typedef struct s_philo
 }				t_philo;
 
 int		main(int argc, char **argv);
-void	init(t_philo *philo, int argc, char **argv);
+void	init(t_list *philo_list, int argc, char **argv);
 int		ft_atoi(char *str);
 int		ft_strlen(char *s);
 void	ft_exit(char *texto);
 void	ft_crono(void);
 void	*my_thread_function(void *arg);
+
+/* void	showme(t_list *list, char *a); */
 #endif

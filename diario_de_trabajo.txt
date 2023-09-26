@@ -7,3 +7,13 @@
 			- con usleep, los cronos y con los hilos, consigo escribir desde dos procesos.
 				- Veo que funciona pero no tengo claro como ... que fantasía.
 					- he roto todo y he desesperado antes de conseguir arreglarlo...
+26 septiembre 2023
+	- Entiendo como se pasan los datos dentro de las funciones y hago una cuenta regresiva
+	- creo tantos filosofos como n_philo y le intento dar un nombre a cada uno.
+		- No se del todo si el proceso es el mismo o no, dado que cuando le pones pocos numeros de comer, reparte las comidas...
+		- añado listas para poder fijar crear los tenedores, las listas apuntan al nodo de antes y de despues
+		- mi crono tiene un retraso de 0.004 por cada 0.1 aprox...
+	
+
+
+

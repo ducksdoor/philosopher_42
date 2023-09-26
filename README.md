@@ -21,8 +21,10 @@ Se utiliza para obtener información sobre la fecha y hora actual. La función g
 __pthread_create()__
 
 Pertenece a la libreria <pthread.h>. Se utiliza para crear y lanzar hilos (threads) en aplicaciones multiproceso.
+La función devuelve un __0__ si todo a salido bien.
 El prototipo es: pthread_create(pthread_t __*thread__, const pthread_attr_t __*attr__, void __*(*start_routine)(void *)__, void __*arg__);
 Para probarlo  : pthread_create(__&my_thread__, __NULL__, __my_thread_function__, __NULL__);
+- Los argumentos son:
 
 - __thread__: Un puntero a una variable pthread_t que se utilizará para almacenar el identificador del hilo recién creado. Este identificador se usa para referirse al hilo más tarde en otras funciones relacionadas con hilos.
 
@@ -39,6 +41,8 @@ Esta función se utiliza para marcar un hilo como "desprendido" para que el sist
 __pthread_join()__
 
 Se utiliza para esperar a que un hilo (thread) en un programa termine su ejecución. Se utiliza para sincronizar la ejecución del hilo principal con la finalización de otro hilo. La función pthread_join bloquea la ejecución del hilo llamante hasta que el hilo que se está esperando haya terminado. Es útil cuando necesitas asegurarte de que ciertos hilos hayan terminado su ejecución antes de continuar con otras partes del programa o cuando necesitas recopilar resultados de hilos secundarios.
+
+el primer argumento es el identificador del hilo que quieres cerrar, mientras que el segundo es el vaor de retorno, si no se usa, se pondra NULL.
 
 __pthread_mutex_init()__
 Se utiliza para inicializar un objeto de tipo "mutex" (mutexes) en un programa que utiliza hilos (threads). Los mutexes son una herramienta fundamental en la programación multihilo para lograr la sincronización y la exclusión mutua, lo que significa que permiten a los hilos cooperar y controlar el acceso concurrente a recursos compartidos.
