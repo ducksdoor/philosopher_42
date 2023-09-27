@@ -34,15 +34,21 @@ typedef struct s_philo
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	n_times_each_philosopher_must_eat;
+	// identificador del hilo.
 }				t_philo;
 
+t_list	*ft_lstnew(int argc, char **argv, int x);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	create_list_filo(int argc, char **argv);
 int		main(int argc, char **argv);
-void	init(t_list *philo_list, int argc, char **argv);
+void	init(t_list *philo_list, int argc, char **argv, int x);
 int		ft_atoi(char *str);
 int		ft_strlen(char *s);
 void	ft_exit(char *texto);
 void	ft_crono(void);
 void	*my_thread_function(void *arg);
+void	showme(t_list *list);
+
 
 /* void	showme(t_list *list, char *a); */
 #endif

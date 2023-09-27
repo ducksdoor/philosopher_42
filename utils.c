@@ -47,9 +47,10 @@ void	ft_simply_crono(void)
 	}
 }
 
-void	init(t_list *philo_list, int argc, char **argv)
+void	init(t_list *philo_list, int argc, char **argv, int x)
 {
 	philo_list->philo = malloc(sizeof(t_philo));
+	philo_list->philo->name = x;
 	philo_list->philo->n_philosophers = ft_atoi(argv[1]);
 	philo_list->philo->time_to_die = ft_atoi(argv[2]);
 	philo_list->philo->time_to_eat = ft_atoi(argv[3]);

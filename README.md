@@ -58,3 +58,11 @@ Se utiliza en programación multihilo para adquirir la cerradura (lock) de un ob
 
 __pthread_mutex_unlock__
 Se utiliza en programación multihilo para liberar o desbloquear la cerradura (lock).
+
+
+
+
+# Como funciona esto:
+
+0 comprobación de errores (numeros positivos, suficientes argumentos)
+1 crea una lista de los filosofos

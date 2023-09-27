@@ -12,7 +12,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 SOURCE = philosophers.c utils.c utils_for_write.c \
-		#showmefordebug.c \
+		showmefordebug.c \
+		list_for_philo.c
 
 %.o: %.c
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN)$< $(DEF_COLOR)"

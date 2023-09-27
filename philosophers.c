@@ -30,6 +30,25 @@ void	*my_thread_function(void *arg)
 	exit(1);
 }
 
+void	create_list_filo(int argc, char **argv)
+{
+	t_list	*filolist;
+	t_list	*philo;
+	int		x;
+
+	x = 1;
+	filolist = ft_lstnew(argc, argv, x);
+	x++;
+	while (x <= ft_atoi(argv[1]))
+	{
+		philo = ft_lstnew(argc, argv, x);
+		ft_lstadd_back(&filolist, philo);
+		x++;
+	}
+	showme(filolist);
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_list		*p_list;
@@ -41,26 +60,32 @@ int	main(int argc, char **argv)
 		ft_exit("Número incorrecto de argumentos");
 
 	p_list = malloc(sizeof(t_list));
-	init(p_list, argc, argv);
+	create_list_filo(argc, argv);
 	x = 1;
 		//Este bloque es para los bucles
 	while (x <= ft_atoi(argv[1]))
 	{
 		if (0 != pthread_create(&my_thread[x], NULL, my_thread_function, p_list))
 			ft_exit("error en la creación del hilo");
+		showme(p_list);
 		x++;
 		p_list->philo->name++;
 		usleep(1);
 	}
-	ft_crono();
+	ft_crono(); 
 /* 	pthread_join(my_thread, NULL); */
 
-	printf("El hilo ha terminado.\n");
 /* 	printf("%d", philo->n_philosophers); */
 }
 
 
 /* to do 
+
+unir el nuevo makefile con el viejo...
+de tal forma que quiero crear los hilos dentro de las listas, 
+esto hace que tenga que crear el identificador de hilos dentro de la LISTA que esta en s_philo
+
+
 ---> que no sea negativo el numero que entra. 
 ---> Preparar la función showme para reciclarla, ahora es la del push swap
 ---> Meter y usar funciones relacionadas con listas como crear nodos
@@ -71,5 +96,5 @@ int	main(int argc, char **argv)
 ---> leaks? entender como se cierra todo sin leaks
 ---> Cerrar todos los hilos desde uno de ellos...
 ---> 
---->
+---> 
 --->*/

@@ -13,7 +13,9 @@
 		- No se del todo si el proceso es el mismo o no, dado que cuando le pones pocos numeros de comer, reparte las comidas...
 		- añado listas para poder fijar crear los tenedores, las listas apuntan al nodo de antes y de despues
 		- mi crono tiene un retraso de 0.004 por cada 0.1 aprox...
-	
+27 Septiembre
+	- Mucha pelea para crear una lista del tamaño del numero de filósofos.
+	- desarrollo del showme, mas o menos, el principio
 
 
 
