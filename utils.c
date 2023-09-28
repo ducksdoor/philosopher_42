@@ -32,7 +32,7 @@ void	ft_crono(void)
 	}
 }
 
-void	ft_simply_crono(void)
+/* void	ft_simply_crono(void)
 {
 	struct timeval	start_time;
 	struct timeval	end_time;
@@ -45,19 +45,24 @@ void	ft_simply_crono(void)
 		elapsed_time = (end_time.tv_sec - start_time.tv_sec);
 		printf("%ld\n", elapsed_time);
 	}
-}
+} */
 
-void	init(t_list *philo_list, int argc, char **argv, int x)
+void	init(t_list *p_list, int argc, char **argv, int x)
 {
-	philo_list->philo = malloc(sizeof(t_philo));
-	philo_list->philo->name = x;
-	philo_list->philo->n_philosophers = ft_atoi(argv[1]);
-	philo_list->philo->time_to_die = ft_atoi(argv[2]);
-	philo_list->philo->time_to_eat = ft_atoi(argv[3]);
-	philo_list->philo->time_to_sleep = ft_atoi(argv[4]);
-	philo_list->philo->n_times_each_philosopher_must_eat = 0;
+
+
+	p_list->philo = malloc(sizeof(t_philo));
+	p_list->philo->name = x;
+	p_list->philo->fork = x;
+	p_list->philo->time_to_die = ft_atoi(argv[2]);
+	p_list->philo->time_to_eat = ft_atoi(argv[3]);
+	p_list->philo->time_to_sleep = ft_atoi(argv[4]);
+	p_list->philo->n_times_each_philosopher_must_eat = 0;
+	p_list->philo->thread = malloc(sizeof(pthread_t));
 	if (argc == 6)
-		philo_list->philo->n_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+		p_list->philo->n_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+	if (0 != pthread_create(&p_list->philo->thread, NULL, thread_ft, p_list))
+		ft_exit("error en la creación del hilo");
 }
 
 int	ft_atoi(char *str)

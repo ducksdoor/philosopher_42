@@ -11,86 +11,54 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-
-void	*my_thread_function(void *arg)
+t_list *create_list_filo(int argc, char **argv)
 {
-	t_list	*x;
-	int		name;
-
-	x = arg;
-	name = x->philo->name;
-	printf("creo el tenedor numero %d\n", name);
-	while (x->philo->n_times_each_philosopher_must_eat >= 0)
-	{
-		usleep(500000);
-		printf("Soy el filosofo %d Estoy vivo aun !\n", name);
-		x->philo->n_times_each_philosopher_must_eat--;
-	}
-	exit(1);
-}
-
-void	create_list_filo(int argc, char **argv)
-{
+	int		x;
 	t_list	*filolist;
 	t_list	*philo;
-	int		x;
 
-	x = 1;
-	filolist = ft_lstnew(argc, argv, x);
-	x++;
+	filolist = malloc(sizeof(t_list));
+	if (!filolist)
+		return (NULL);
+	x = 2;
+	init(filolist, argc, argv, (x -1));
 	while (x <= ft_atoi(argv[1]))
 	{
-		philo = ft_lstnew(argc, argv, x);
+		philo = malloc(sizeof(t_list));
+		if (!philo)
+			return (NULL);
+		init(philo, argc, argv, x);
 		ft_lstadd_back(&filolist, philo);
 		x++;
 	}
-	showme(filolist);
+	x = 1;
+	return (filolist);
 }
-
 
 int	main(int argc, char **argv)
 {
 	t_list		*p_list;
-
-	pthread_t	my_thread[100];
+/* 	t_list		*aux; */
 	int			x;
 
 	if (argc != 5 && argc != 6)
 		ft_exit("Número incorrecto de argumentos");
-
-	p_list = malloc(sizeof(t_list));
-	create_list_filo(argc, argv);
+	p_list = create_list_filo(argc, argv);
 	x = 1;
-		//Este bloque es para los bucles
+	showme(p_list);
+	ft_crono();
+/* 	aux = *p_list; */
 	while (x <= ft_atoi(argv[1]))
 	{
-		if (0 != pthread_create(&my_thread[x], NULL, my_thread_function, p_list))
-			ft_exit("error en la creación del hilo");
-		showme(p_list);
-		x++;
-		p_list->philo->name++;
-		usleep(1);
+		pthread_join(p_list->philo->thread, NULL);
+		p_list = p_list->next;
 	}
-	ft_crono(); 
-/* 	pthread_join(my_thread, NULL); */
-
-/* 	printf("%d", philo->n_philosophers); */
 }
 
 
 /* to do 
-
-unir el nuevo makefile con el viejo...
-de tal forma que quiero crear los hilos dentro de las listas, 
-esto hace que tenga que crear el identificador de hilos dentro de la LISTA que esta en s_philo
-
-
 ---> que no sea negativo el numero que entra. 
----> Preparar la función showme para reciclarla, ahora es la del push swap
----> Meter y usar funciones relacionadas con listas como crear nodos
-	---> la lista tiene que ser circular, el ultimo tendra que apuntar al primero
-		lo de arriba es dando por supuesto que vas a crear un tenedor por nodo
+	---> los filosofos tienen que ser capaces de acceder al tenedor del siguiente, 
 ---> Crear los tenedores
 ---> Porque el tiempo que se da no es preciso?
 ---> leaks? entender como se cierra todo sin leaks

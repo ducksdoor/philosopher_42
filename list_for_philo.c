@@ -35,14 +35,3 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	else
 		*lst = new;
 }
-
-t_list	*ft_lstnew(int argc, char **argv, int x)
-{
-	t_list	*head;
-
-	head = malloc(sizeof(t_list));
-	if (!head)
-		return (NULL);
-	init(head, argc, argv, x);
-	return (head);
-}

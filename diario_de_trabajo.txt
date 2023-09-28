@@ -16,6 +16,27 @@
 27 Septiembre
 	- Mucha pelea para crear una lista del tamaño del numero de filósofos.
 	- desarrollo del showme, mas o menos, el principio
+28 Septiembre
+	- He unido los mains y creados algunas rectificaciones del showme, ademas he moodificado el orden y el sitio de creacion de las cosas
+	- he seguido reduciendo funciones y pongo a usar, creo que de mala forma la función de esperar hilos,.,.
+	- uso el tiempo de "comer" para empezar a "hablar"
+	- he gestionado simplemente sumando el tiempo, quiza esto sea trampa.... 
+	- Funciona el crono y el esperar....
+	- reuso el crono para "matar" o simplemente "parar" el proceso y uso la accion de "comer" para reiniciar la muerte.
+	- MAS BIEN ES UN intento de buscar si muere o no... creo que hay que buscar un crono mas preciso...
+	
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
