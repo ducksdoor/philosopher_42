@@ -16,6 +16,7 @@ t_list *create_list_filo(int argc, char **argv)
 	int		x;
 	t_list	*filolist;
 	t_list	*philo;
+	t_list	*xaus;
 
 	filolist = malloc(sizeof(t_list));
 	if (!filolist)
@@ -31,32 +32,48 @@ t_list *create_list_filo(int argc, char **argv)
 		ft_lstadd_back(&filolist, philo);
 		x++;
 	}
+	xaus = ft_lstlast(filolist);
+	xaus->next = filolist;
 	x = 1;
 	return (filolist);
 }
 
+void leaks(void)
+{
+   system("leaks -q philo"); 
+}
+
 int	main(int argc, char **argv)
 {
-	t_list		*p_list;
-/* 	t_list		*aux; */
-	int			x;
+	t_list	*p_list;
+	int		x;
 
 	if (argc != 5 && argc != 6)
-		ft_exit("Número incorrecto de argumentos");
+		ft_exit("Número incorrecto de argumentos", 2);
+	if (argc == 6 && argv[5] <= 0)
+		ft_exit("Número de veces de comer erroneo", 2);
+//	atexit(leaks);
 	p_list = create_list_filo(argc, argv);
 	x = 1;
-	showme(p_list);
-	ft_crono();
-/* 	aux = *p_list; */
+//	showme(p_list);
 	while (x <= ft_atoi(argv[1]))
 	{
 		pthread_join(p_list->philo->thread, NULL);
 		p_list = p_list->next;
 	}
+	ft_exit("El programa ha terminado", 1);
 }
 
 
 /* to do 
+
+----quiza dividir el init en tres pasos o al menos que la función que crea los procesos sea distinta que la de los tenedores
+
+
+---->gestionar que los filosofos entren a comer hasta el infinito si no esta el numero opcional
+--->Rebajar  en lineas la función de los hilos, muy importante.
+--->quitar los printf
+
 ---> que no sea negativo el numero que entra. 
 	---> los filosofos tienen que ser capaces de acceder al tenedor del siguiente, 
 ---> Crear los tenedores

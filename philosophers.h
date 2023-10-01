@@ -27,24 +27,25 @@ typedef struct s_list
 
 typedef struct s_philo
 {
-	int			name;
-	pthread_t	thread;
-	int			fork;
-
-	int			n_philosophers;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			n_times_each_philosopher_must_eat;
+	int				name;
+	pthread_t		thread;
+	pthread_mutex_t	*mutex;
+	int				fork;
+	int				n_philosophers;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				n_times_must_eat;
 }				t_philo;
 
+t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 t_list		*create_list_filo(int argc, char **argv);
 int			main(int argc, char **argv);
 void		init(t_list *philo_list, int argc, char **argv, int x);
 int			ft_atoi(char *str);
 int			ft_strlen(char *s);
-void		ft_exit(char *texto);
+void		ft_exit(char *texto, int fd);
 void		ft_crono(void);
 void		*thread_ft(void *arg);
 void		showme(t_list *list);

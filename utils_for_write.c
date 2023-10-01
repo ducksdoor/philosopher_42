@@ -22,8 +22,8 @@ int	ft_strlen(char *s)
 	return (x);
 }
 
-void	ft_exit(char *texto)
+void	ft_exit(char *texto, int fd)
 {
-	write(1, texto, ft_strlen(texto));
-	exit(1);
+	write(fd, texto, ft_strlen(texto));
+	exit(fd);
 }

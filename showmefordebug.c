@@ -15,7 +15,7 @@ void	showme(t_list *list)
 		if (list->next != NULL)
 		{
 			printf("Tu filo se llama: %d\n", list->philo->name);
-			printf("comera %d veces aun\n", list->philo->n_times_each_philosopher_must_eat);
+			printf("comera %d veces aun\n", list->philo->n_times_must_eat);
 			printf("usara el fork %d\n\n", list->philo->fork);
 /*			printf("Tu hilo se llama %d\n", list->philo->name);
 			printf("Tu hilo se llama %d\n", list->philo->name); */
@@ -28,7 +28,7 @@ void	showme(t_list *list)
 		else
 		{
 			printf("Tu hilo se llama: %d\n", list->philo->name);
-			printf("comera %d veces aun\n", list->philo->n_times_each_philosopher_must_eat);
+			printf("comera %d veces aun\n", list->philo->n_times_must_eat);
 			printf("usara el fork %d\n\n", list->philo->fork);
 /* 			else
 				printf("caracola\n");

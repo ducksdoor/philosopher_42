@@ -24,11 +24,11 @@ void	ft_crono(void)
 	{
 		gettimeofday(&end_time, NULL);
 		elapsed_time = (end_time.tv_sec - start_time.tv_sec)
-			* 1000000 + (end_time.tv_usec - start_time.tv_usec);
-		real_time.tv_sec = elapsed_time / 1000000;
-		real_time.tv_usec = elapsed_time % 1000000;
+			* 1000 + (end_time.tv_usec - start_time.tv_usec);
+		real_time.tv_sec = elapsed_time / 1000;
+		real_time.tv_usec = elapsed_time % 1000;
 		printf("%ld.%06d\n", real_time.tv_sec, real_time.tv_usec);
-		usleep(100000);
+		usleep(10);
 	}
 }
 
@@ -50,19 +50,21 @@ void	ft_crono(void)
 void	init(t_list *p_list, int argc, char **argv, int x)
 {
 
-
 	p_list->philo = malloc(sizeof(t_philo));
 	p_list->philo->name = x;
 	p_list->philo->fork = x;
+	p_list->philo->mutex = malloc(sizeof(pthread_mutex_t));
+	if (pthread_mutex_init(p_list->philo->mutex, NULL) != 0)
+		ft_exit("un filosofo a muerto..", 2);
 	p_list->philo->time_to_die = ft_atoi(argv[2]);
 	p_list->philo->time_to_eat = ft_atoi(argv[3]);
 	p_list->philo->time_to_sleep = ft_atoi(argv[4]);
-	p_list->philo->n_times_each_philosopher_must_eat = 0;
+	p_list->philo->n_times_must_eat = 0;
 	p_list->philo->thread = malloc(sizeof(pthread_t));
 	if (argc == 6)
-		p_list->philo->n_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+		p_list->philo->n_times_must_eat = ft_atoi(argv[5]);
 	if (0 != pthread_create(&p_list->philo->thread, NULL, thread_ft, p_list))
-		ft_exit("error en la creación del hilo");
+		ft_exit("error en la creación del hilo", 2);
 }
 
 int	ft_atoi(char *str)

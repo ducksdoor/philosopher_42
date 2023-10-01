@@ -12,50 +12,71 @@
 
 #include "philosophers.h"
 
-/* 
-struct timeval	crono_trucado(start)
-{
-
-}
-
- */
 
 void	*thread_ft(void *arg)
 {
 	struct timeval	start;
 	struct timeval	end;
-/* 	struct timeval	result; */
-	t_list	*x;
-	int		name;
-	int		turno;
-	int		tiempo_pasado;
+	struct timeval	aux;
+	t_list			*x;
+	int				t_juego;
+	int				t_pasado;
+	int				t_trampa;
 
 	gettimeofday(&start, NULL);
+	gettimeofday(&aux, NULL);
 
 	x = arg;
-	name = x->philo->name;
-	tiempo_pasado = 0;
-	while (x->philo->n_times_each_philosopher_must_eat > 0)
+	t_pasado = 0;
+	t_trampa = 0;
+	while (x->philo->n_times_must_eat > 0 )
+	//|| x->philo->n_times_must_eat < 0)
 	{
 		gettimeofday(&end, NULL);
-		turno = (end.tv_usec - start.tv_usec);
-		//printf("%d\n", turno);
-		if (turno >= x->philo->time_to_die)
+		t_pasado = (end.tv_usec - start.tv_usec);
+		t_juego = (end.tv_usec - aux.tv_usec);
+
+		if (x->philo->name % 2 == 0)
+			usleep (10);
+		if (t_juego >= x->philo->time_to_die)
 		{
-			printf("he muerto");
-			exit(1);
+			printf("he muerto\n");
+			printf("el tiempo de muerte es : %d\n", t_juego);
+			pthread_mutex_destroy(x->philo->mutex);
+			ft_exit("un filosofo a muerto..", 1);
 		}
-			//Esto hace que "coma" cada x tiempo.
-		else if (turno >= x->philo->time_to_eat)
+		else
 		{
-			printf("he comido\n");
-			/* tiempo_pasado = tiempo_pasado + x->philo->time_to_eat; */
-			gettimeofday(&start, NULL);
-			printf("el tiempo de muerte es : %d\n", turno);
+			if (0 == pthread_mutex_lock(x->philo->mutex))
+			{
+				printf("he bloqueado mi mutex\n");
+				if (0 == pthread_mutex_lock(x->next->philo->mutex))
+				{
+					printf("he bloqueado el mutex del siguiente hilo\n");
+					t_trampa = t_trampa + x->philo->time_to_eat;
+					gettimeofday(&aux, NULL);
+					x->philo->n_times_must_eat--;
+					printf("he comido\n");
+					usleep(x->philo->time_to_eat);
+					printf("TR->[%d], TJ->[%d], TT->[%d] Soy el filo %d, me quedan %d comidas y Estoy vivo!\n",t_pasado, t_juego, t_trampa, x->philo->name, x->philo->n_times_must_eat);
+					pthread_mutex_unlock(x->next->philo->mutex);
+					printf("he desbloqueado el mutex del siguiente hilo\n");
+					pthread_mutex_unlock(x->philo->mutex);
+					printf("he desbloqueado mi mutex\n\n");
+					usleep(x->philo->time_to_sleep);
+				}	
+				else
+				{
+					pthread_mutex_unlock(x->philo->mutex);
+					printf("|he desbloqueado mi mutex\n\n");
+					usleep(100);
+				}
+			}
+			pthread_mutex_unlock(x->philo->mutex);
+			printf("he desbloqueado mi mutex\n\n");
+			usleep(100);
 		}
-		usleep(111);
-		printf("[%d]Soy el filosofo %d, me quedan %d comidas y Estoy vivo aun !\n",turno, name, x->philo->n_times_each_philosopher_must_eat);
-		x->philo->n_times_each_philosopher_must_eat--;
 	}
+	ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
 	exit(1);
 }

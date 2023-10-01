@@ -45,18 +45,37 @@ Se utiliza para esperar a que un hilo (thread) en un programa termine su ejecuci
 el primer argumento es el identificador del hilo que quieres cerrar, mientras que el segundo es el vaor de retorno, si no se usa, se pondra NULL.
 
 __pthread_mutex_init()__
-Se utiliza para inicializar un objeto de tipo "mutex" (mutexes) en un programa que utiliza hilos (threads). Los mutexes son una herramienta fundamental en la programación multihilo para lograr la sincronización y la exclusión mutua, lo que significa que permiten a los hilos cooperar y controlar el acceso concurrente a recursos compartidos.
-Es importante destacar que después de utilizar un mutex, debes liberar sus recursos llamando a pthread_mutex_destroy. Esto es especialmente importante si el mutex fue inicializado dinámicamente con pthread_mutex_init. La función pthread_mutex_destroy libera los recursos asociados al mutex y debe llamarse cuando ya no se necesite.
+Se utiliza para inicializar un objeto de tipo "mutex" (mutexes) en un programa que utiliza hilos (threads). Los mutexes son una herramienta fundamental en la programación multihilo para lograr la sincronización. Lo que significa que permiten a los hilos cooperar y controlar el acceso concurrente a recursos compartidos.
+Es importante destacar que después de utilizar un mutex, debes __liberar__ sus recursos llamando a pthread_mutex_destroy(). Esto es especialmente importante si el mutex fue inicializado dinámicamente con pthread_mutex_init(). La función pthread_mutex_destroy() libera los recursos asociados al mutex y debe llamarse cuando ya no se necesite.
 El uso adecuado de mutexes es fundamental para garantizar que los hilos trabajen de manera sincronizada y segura en entornos multihilo. Los mutexes se utilizan para crear secciones críticas en las que solo un hilo puede acceder a un recurso compartido a la vez, evitando problemas de concurrencia como condiciones de carrera.
+
+__Mutex__
+Abreviatura de "mutual exclusion" (exclusión mutua).
+Su función principal es garantizar que solo un hilo a la vez pueda ejecutar una sección de código protegida por el mutex, lo que ayuda a prevenir condiciones de carrera y asegura la consistencia de los datos compartidos.
+El funcionamiento básico de un mutex implica dos operaciones principales: 
+
+Bloqueo (Lock):
+Cuando un hilo desea acceder a una sección crítica de código o un recurso compartido, primero intenta adquirir el mutex asociado a ese recurso.
+Si el mutex está desbloqueado, el hilo lo adquiere y continúa ejecutando su código dentro de la sección crítica. En este punto, el mutex se bloquea y otros hilos que intenten adquirirlo tendrán que esperar.
+Si el mutex ya está bloqueado por otro hilo, el hilo actual se bloqueará (generalmente en un estado de espera) hasta que el mutex se desbloquee.
+
+Desbloqueo (Unlock):
+Cuando un hilo ha terminado de utilizar la sección crítica o el recurso compartido, libera el mutex llamando a la operación de desbloqueo.
+Al liberar el mutex, este se vuelve disponible para otros hilos que estén esperando adquirirlo.
+Otro hilo en espera puede adquirir el mutex y ejecutar su sección crítica, y así sucesivamente.
 
 __pthread_mutex_destroy()__
 Se utiliza para destruir o liberar un objeto mutex (mutexes). Esto es importante para garantizar una gestión adecuada de los recursos y prevenir posibles pérdidas de memoria.
 Es fundamental que llames a pthread_mutex_destroy solo cuando estés seguro de que ningún hilo está utilizando el mutex y que ya no se necesitará. Si intentas destruir un mutex que todavía está siendo utilizado por un hilo activo, puede llevar a comportamientos indefinidos en tu programa.
 
 __pthread_mutex_lock()__
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+
 Se utiliza en programación multihilo para adquirir la cerradura (lock) de un objeto mutex (mutexes). La adquisición de la cerradura de un mutex permite que un hilo entre en una sección crítica del código protegida por ese mutex, mientras que bloquea o pone en espera a otros hilos que intenten adquirir la misma cerradura. Esto se utiliza para lograr la exclusión mutua y garantizar que solo un hilo pueda acceder a un recurso compartido a la vez.
 
 __pthread_mutex_unlock__
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+
 Se utiliza en programación multihilo para liberar o desbloquear la cerradura (lock).
 
 
@@ -66,3 +85,14 @@ Se utiliza en programación multihilo para liberar o desbloquear la cerradura (l
 
 0 comprobación de errores (numeros positivos, suficientes argumentos)
 1 crea una lista de los filosofos
+
+
+
+# Comandos Útiles:
+
+void leaks(void)
+{
+   system("leaks -q a.out"); 
+}
+
+atexit(leaks);
