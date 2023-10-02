@@ -11,18 +11,20 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
-t_list *create_list_filo(int argc, char **argv)
+
+t_list	*create_list_filo(int argc, char **argv)
 {
-	int		x;
-	t_list	*filolist;
-	t_list	*philo;
-	t_list	*xaus;
+	int				x;
+	t_list			*filolist;
+	t_list			*philo;
+	t_list			*xaus;
 
 	filolist = malloc(sizeof(t_list));
 	if (!filolist)
 		return (NULL);
 	x = 2;
 	init(filolist, argc, argv, (x -1));
+
 	while (x <= ft_atoi(argv[1]))
 	{
 		philo = malloc(sizeof(t_list));
@@ -34,25 +36,24 @@ t_list *create_list_filo(int argc, char **argv)
 	}
 	xaus = ft_lstlast(filolist);
 	xaus->next = filolist;
-	x = 1;
 	return (filolist);
 }
 
 void leaks(void)
 {
-   system("leaks -q philo"); 
+	system("leaks -q philo"); 
 }
+//	atexit(leaks);
 
 int	main(int argc, char **argv)
 {
-	t_list	*p_list;
-	int		x;
+	t_list			*p_list;
+	int				x;
 
 	if (argc != 5 && argc != 6)
 		ft_exit("Número incorrecto de argumentos", 2);
 	if (argc == 6 && argv[5] <= 0)
 		ft_exit("Número de veces de comer erroneo", 2);
-//	atexit(leaks);
 	p_list = create_list_filo(argc, argv);
 	x = 1;
 //	showme(p_list);
@@ -64,9 +65,7 @@ int	main(int argc, char **argv)
 	ft_exit("El programa ha terminado", 1);
 }
 
-
-/* to do 
-
+/* to do
 ----quiza dividir el init en tres pasos o al menos que la función que crea los procesos sea distinta que la de los tenedores
 
 

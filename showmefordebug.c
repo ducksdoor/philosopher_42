@@ -16,7 +16,7 @@ void	showme(t_list *list)
 		{
 			printf("Tu filo se llama: %d\n", list->philo->name);
 			printf("comera %d veces aun\n", list->philo->n_times_must_eat);
-			printf("usara el fork %d\n\n", list->philo->fork);
+			printf("usara el mute_fork %d\n\n", list->philo->mute_fork);
 /*			printf("Tu hilo se llama %d\n", list->philo->name);
 			printf("Tu hilo se llama %d\n", list->philo->name); */
 
@@ -29,7 +29,7 @@ void	showme(t_list *list)
 		{
 			printf("Tu hilo se llama: %d\n", list->philo->name);
 			printf("comera %d veces aun\n", list->philo->n_times_must_eat);
-			printf("usara el fork %d\n\n", list->philo->fork);
+			printf("usara el mute_fork %d\n\n", list->philo->mute_fork);
 /* 			else
 				printf("caracola\n");
 			printf ("este es el binario de [%d] =", list->inde);
