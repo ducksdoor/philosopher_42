@@ -66,6 +66,7 @@ void	init(t_list *p_list, int argc, char **argv, int x)
 {
 /* 	struct timeval	start_time; */
 
+	p_list->philo->boolmutex = 0;
 	p_list->philo = malloc(sizeof(t_philo));
 	p_list->philo->name = x;
 	p_list->philo->mute_fork = x;

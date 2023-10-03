@@ -31,6 +31,7 @@ typedef struct s_philo
 	int				name;
 	pthread_t		thread;
 	pthread_mutex_t	*mutex;
+	int				boolmutex;
 	int				mute_fork;
 	int				t_die;
 	int				t_eat;

@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 		ft_exit("Número de veces de comer erroneo", 2);
 	p_list = create_list_filo(argc, argv);
 	x = 1;
-//	showme(p_list);
+	//showme(p_list);
 	while (x <= ft_atoi(argv[1]))
 	{
 		pthread_join(p_list->philo->thread, NULL);

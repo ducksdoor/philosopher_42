@@ -30,6 +30,10 @@
 	- No se que he tocado pero se ha quedado todo el tiempo cuadrado solo, a veces pasan que cosas...
 	- consigo que todos mis filosofos coman! despues de todo el dia! usando los tenedores! 
 	- No funcionan, no lo entiendo, solo funciono una vez.
+3 octubre
+	- el FALLO esta en que los hilos entran a comprobar si el hilo se puede usar, por tanto, tienen que comprobarlo antes
+	- he intentado crear un booliano para los hilos pero no ha salido, aun así, estoy seguro de que van por ahí los tiros....
+	- Me da segmentation fault, pero corregido eso seguro que esta bien !!!!!!!!!!!!
 	
 
 

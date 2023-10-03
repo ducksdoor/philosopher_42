@@ -37,8 +37,8 @@ void	*thread_ft(void *arg)
 	x = arg;
 	t_pasado = 0;
 	t_trampa = 0;
-/* 	if (x->philo->name % 1 == 0)
-		usleep (5); */
+	if (x->philo->name % 1 == 0)
+		usleep (100);
 	while (x->philo->n_times_must_eat > 0) 
 	/* || x->philo->n_times_must_eat < 0) */
 	{
@@ -48,42 +48,61 @@ void	*thread_ft(void *arg)
 
 		if (t_juego >= x->philo->t_die)
 			die(x, t_juego);
+		
 		else if (t_juego < x->philo->t_die)
 		{
 			if (0 == pthread_mutex_lock(x->philo->mutex))
 			{
-				printf("he bloqueado mi mutex\n");
-				if (0 == pthread_mutex_lock(x->next->philo->mutex))
+					//el siguiente comentario es para que funciones con un solo tenedor
+/* 				printf("he bloqueado mi mutex\n");
+				t_trampa = t_trampa + x->philo->t_eat;
+				gettimeofday(&aux, NULL);
+				x->philo->n_times_must_eat--;
+				printf("he comido\n");
+				usleep(x->philo->t_eat);
+				pthread_mutex_unlock(x->philo->mutex);
+				printf("he desbloqueado mi mutex\n\n");
+				printf("TR->[%d], TJ->[%d], TT->[%d] Soy el filo %d, me quedan %d comidas y Estoy vivo!\n",t_pasado, t_juego, t_trampa, x->philo->name, x->philo->n_times_must_eat); */
+					//fin del comment.
+
+				printf("he cogido un tenedor\n");
+				x->philo->boolmutex = 1;
+				if (x->next->philo->boolmutex == 0)
 				{
-					printf("he bloqueado el mutex del siguiente hilo\n");
-					t_trampa = t_trampa + x->philo->t_eat;
+					pthread_mutex_lock(x->next->philo->mutex);
+					printf("he cogido el segundo tenedor\n");
 					gettimeofday(&aux, NULL);
 					x->philo->n_times_must_eat--;
 					printf("he comido\n");
 					usleep(x->philo->t_eat);
-/* 					printf("mas pruebas con el crono [%d]\n", (t_juego - x->start_time)); */
 					printf("TR->[%d], TJ->[%d], TT->[%d] Soy el filo %d, me quedan %d comidas y Estoy vivo!\n",t_pasado, t_juego, t_trampa, x->philo->name, x->philo->n_times_must_eat);
 					pthread_mutex_unlock(x->next->philo->mutex);
+					x->philo->boolmutex = 0;
 					printf("he desbloqueado el mutex del siguiente hilo\n");
 					pthread_mutex_unlock(x->philo->mutex);
 					printf("he desbloqueado mi mutex\n\n");
 					usleep(x->philo->t_sleep);
-				}	
+				}
 				else
 				{
+					x->philo->boolmutex = 0;
 					pthread_mutex_unlock(x->philo->mutex);
 					printf("|he desbloqueado mi mutex\n\n");
-					usleep(100);
+					usleep(10);
 				}
 			}
-			if (3 == pthread_mutex_lock(x->next->philo->mutex))
+			else if (3 == pthread_mutex_lock(x->next->philo->mutex))
 			{
 				pthread_mutex_destroy(x->philo->mutex);
 				ft_exit("Creador, un filosofo, hermano mio a muerto, por tanto, termino el ejercicio", 1);
 			}
-			pthread_mutex_unlock(x->philo->mutex);
-			printf("he desbloqueado mi mutex\n\n");
-			usleep(100);
+			else
+			{
+				x->philo->boolmutex = 0;
+				pthread_mutex_unlock(x->philo->mutex);
+				printf("he desbloqueado mi mutex\n\n");
+				usleep(10);
+			}
 		}
 	}
 	ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
