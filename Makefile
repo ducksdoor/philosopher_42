@@ -9,7 +9,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 SOURCE = philosophers.c utils.c utils_for_write.c \
 		showmefordebug.c \
@@ -25,7 +25,7 @@ OBJS = ${SOURCE:.c=.o}
 all: ${NAME}
 	
 ${NAME}: ${OBJS}
-				@$(CC) $(SOURCE) -o $(NAME)
+				@$(CC) $(CFLAGS) $(SOURCE) -o $(NAME)
 				@echo "\n$(GREEN) Created $(NAME) ✓$(DEF_COLOR)\n" 
 				@echo "    _       _       _" | lolcat
 				@echo " __(.)<  __(.)>  __(.)=    Cuak!"  | lolcat

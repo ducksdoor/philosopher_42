@@ -39,10 +39,10 @@ t_list	*create_list_filo(int argc, char **argv)
 	return (filolist);
 }
 
-void leaks(void)
+/* void leaks(void)
 {
 	system("leaks -q philo"); 
-}
+} */
 //	atexit(leaks);
 
 int	main(int argc, char **argv)
@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 		pthread_join(p_list->philo->thread, NULL);
 		p_list = p_list->next;
 	}
-	ft_exit("El programa ha terminado", 1);
+	ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
 }
 
 /* to do

@@ -49,7 +49,9 @@ int		ft_strlen(char *s);
 void	ft_exit(char *texto, int fd);
 void	ft_crono(void);
 void	*thread_ft(void *arg);
-void	*die(t_list	*list, int x);
+void	fool(t_list *phl, pthread_mutex_t *windows, int wbool);
+void	die(t_list	*list, int x);
+void	eat(t_list *x, int t_juego, int t_pasado);
 void	showme(t_list *list);
 
 #endif
