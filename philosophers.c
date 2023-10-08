@@ -24,7 +24,6 @@ t_list	*create_list_filo(int argc, char **argv)
 		return (NULL);
 	x = 2;
 	init(filolist, argc, argv, (x -1));
-
 	while (x <= ft_atoi(argv[1]))
 	{
 		philo = malloc(sizeof(t_list));
@@ -66,7 +65,8 @@ int	main(int argc, char **argv)
 }
 
 /* to do
-----quiza dividir el init en tres pasos o al menos que la función que crea los procesos sea distinta que la de los tenedores
+----quiza dividir el init en tres pasos o al menos que 
+la función que crea los procesos sea distinta que la de los tenedores
 
 
 ---->gestionar que los filosofos entren a comer hasta el infinito si no esta el numero opcional

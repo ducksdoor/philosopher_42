@@ -23,8 +23,17 @@ typedef struct s_list
 {
 	struct s_philo	*philo;
 	struct s_list	*next;
-/* 	int				start_time; */
-}					t_list;
+	pthread_mutex_t	*printmutex;
+	int				nph;
+	struct s_time	*clock;
+}				t_list;
+
+typedef struct s_time
+{
+	struct timeval	start;
+	struct timeval	end;
+	struct timeval	aux;
+}				t_time;
 
 typedef struct s_philo
 {
@@ -49,9 +58,10 @@ int		ft_strlen(char *s);
 void	ft_exit(char *texto, int fd);
 void	ft_crono(void);
 void	*thread_ft(void *arg);
-void	fool(t_list *phl, pthread_mutex_t *windows, int wbool);
+void	fool(t_list *phl);
 void	die(t_list	*list, int x);
-void	eat(t_list *x, int t_juego, int t_pasado);
+void	eat(t_list *x, int t_juego, long t_real);
+long	ft_time(struct timeval start, struct timeval end);
 void	showme(t_list *list);
 
 #endif

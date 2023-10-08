@@ -27,3 +27,14 @@ void	ft_exit(char *texto, int fd)
 	write(fd, texto, ft_strlen(texto));
 	exit(fd);
 }
+
+long	ft_time(struct timeval start, struct timeval end)
+{
+	long	x;
+	long seconds_elapsed = end.tv_sec - start.tv_sec;
+	long microseconds_elapsed = end.tv_usec - start.tv_usec;
+
+
+	x = (seconds_elapsed * 1000) + (microseconds_elapsed / 1000);
+	return (x);
+}
