@@ -12,6 +12,32 @@
 
 #include "philosophers.h"
 
+void	lock(t_list *phl)
+{
+	int	x;
+
+	x = 0;
+	while (x < phl->nph)
+	{
+		pthread_mutex_lock(phl->printmutex);
+		phl = phl->next;
+		x++;
+	}
+}
+
+void	unlock(t_list *phl)
+{
+	int	x;
+
+	x = 0;
+	while (x < phl->nph)
+	{
+		pthread_mutex_unlock(phl->printmutex);
+		phl = phl->next;
+		x++;
+	}
+}
+
 int	ft_strlen(char *s)
 {
 	int	x;
@@ -28,13 +54,3 @@ void	ft_exit(char *texto, int fd)
 	exit(fd);
 }
 
-long	ft_time(struct timeval start, struct timeval end)
-{
-	long	x;
-	long seconds_elapsed = end.tv_sec - start.tv_sec;
-	long microseconds_elapsed = end.tv_usec - start.tv_usec;
-
-
-	x = (seconds_elapsed * 1000) + (microseconds_elapsed / 1000);
-	return (x);
-}

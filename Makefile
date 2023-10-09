@@ -13,7 +13,7 @@ CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 SOURCE = philosophers.c utils.c utils_for_write.c \
 		showmefordebug.c \
-		list_for_philo.c thread.c
+		list_for_philo.c thread.c sacar_tiempos.c
 
 %.o: %.c
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN)$< $(DEF_COLOR)"

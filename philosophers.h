@@ -33,6 +33,7 @@ typedef struct s_time
 	struct timeval	start;
 	struct timeval	end;
 	struct timeval	aux;
+	int				t_juego;
 }				t_time;
 
 typedef struct s_philo
@@ -48,20 +49,23 @@ typedef struct s_philo
 	int				n_times_must_eat;
 }				t_philo;
 
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-t_list	*create_list_filo(int argc, char **argv);
-int		main(int argc, char **argv);
-void	init(t_list *philo_list, int argc, char **argv, int x);
-int		ft_atoi(char *str);
-int		ft_strlen(char *s);
-void	ft_exit(char *texto, int fd);
-void	ft_crono(void);
-void	*thread_ft(void *arg);
-void	fool(t_list *phl);
-void	die(t_list	*list, int x);
-void	eat(t_list *x, int t_juego, long t_real);
-long	ft_time(struct timeval start, struct timeval end);
-void	showme(t_list *list);
+t_list		*ft_lstlast(t_list *lst);
+void		ft_lstadd_back(t_list **lst, t_list *new);
+t_list		*create_list_filo(int argc, char **argv);
+int			main(int argc, char **argv);
+void		init(t_list *philo_list, int argc, char **argv, int x);
+int			ft_atoi(char *str);
+int			ft_strlen(char *s);
+void		ft_exit(char *texto, int fd);
+void		ft_crono(void);
+void		*thread_ft(void *arg);
+void		fool(t_list *phl);
+void		die(t_list	*list, int x);
+void		lock(t_list *phl);
+void		unlock(t_list *phl);
+void		eat(t_list *x, int t_juego, long t_real);
+long		ft_time(struct timeval start, struct timeval end);
+long int	realtime(t_list *phl);
+void		showme(t_list *list);
 
 #endif

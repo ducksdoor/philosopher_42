@@ -14,12 +14,18 @@
 
 void	eat(t_list *x, int t_juego, long t_real)
 {
+	gettimeofday(&x->clock->aux, NULL);
 	x->next->philo->boolmutex = 1;
 	pthread_mutex_lock(x->next->philo->mutex);
+	t_real = realtime(x);
+	if (x->clock->t_juego >= x->philo->t_die)
+		die(x, t_real);
 	printf("f[%ld]filosofo %d uso tenedor amigo\n",t_real, x->philo->name);
 	x->philo->n_times_must_eat--;
 	printf("f[%ld]filosofo %d uso comer\n",t_real, x->philo->name);
+	printf("f[%ld]filosofo %d uso dormir\n",t_real, x->philo->name);
 	usleep(x->philo->t_eat);
+	printf("f[%ld]filosofo %d uso despertar\n",t_real, x->philo->name);
 	printf("TR->[%ld], TJ->[%d]. Soy el filo %d, me quedan %d comidas y Estoy vivo!\n",t_real, t_juego, x->philo->name, x->philo->n_times_must_eat);
 	pthread_mutex_unlock(x->philo->mutex);
 	x->philo->boolmutex = 0;
@@ -38,36 +44,30 @@ void	die(t_list	*list, int x)
 	ft_exit("un filosofo a muerto..", 1);
 	exit(1);
 }
-
-void	lock(t_list *phl)
+static void	posible_eat(t_list *phl, long int t_real)
 {
-	int	x;
-
-	x = 0;
-	while (x < phl->nph)
+	lock(phl);
+	phl->philo->boolmutex = 1;
+	pthread_mutex_lock(phl->philo->mutex);
+	t_real = realtime(phl);
+	if (phl->clock->t_juego >= phl->philo->t_die)
+		die(phl, t_real);
+	printf("f[%ld]filoso %d uso tenedor\n",t_real, phl->philo->name);
+	if (phl->next->philo->boolmutex == 0)
+		eat(phl, phl->clock->t_juego, t_real);
+	else
 	{
-		pthread_mutex_lock(phl->printmutex);
-		phl = phl->next;
-		x++;
+		pthread_mutex_unlock(phl->philo->mutex);
+		phl->philo->boolmutex = 0;
+		printf("\nf[%d]desbloqueado mi mutex\n\n", phl->philo->name);
 	}
-}
-
-void	unlock(t_list *phl)
-{
-	int	x;
-
-	x = 0;
-	while (x < phl->nph)
-	{
-		pthread_mutex_unlock(phl->printmutex);
-		phl = phl->next;
-		x++;
-	}
+	phl->philo->boolmutex = 0;
+	unlock(phl);
+	usleep(phl->philo->t_sleep);
 }
 
 void	fool(t_list *phl)
 {
-	long			t_juego;
 	long int		t_real;
 
 	gettimeofday(&phl->clock->start, NULL);
@@ -76,10 +76,8 @@ void	fool(t_list *phl)
 		usleep (10);
 	while (phl->philo->n_times_must_eat >= 0)
 	{
-		gettimeofday(&phl->clock->end, NULL);
-		t_real = ft_time(phl->clock->start, phl->clock->end);
-		t_juego = ft_time(phl->clock->aux, phl->clock->end);
-		if (t_juego >= phl->philo->t_die)
+		t_real = realtime(phl);
+		if (phl->clock->t_juego >= phl->philo->t_die)
 			die(phl, t_real);
 		else if (phl->philo->n_times_must_eat == 0)
 		{
@@ -89,26 +87,7 @@ void	fool(t_list *phl)
 		else
 		{
 			if (phl->next->philo->boolmutex == 0 && phl->philo->boolmutex == 0)
-			{
-				lock(phl);
-				phl->philo->boolmutex = 1;
-				pthread_mutex_lock(phl->philo->mutex);
-				printf("f[%ld]filoso %d uso tenedor\n",t_real, phl->philo->name);
-				if (phl->next->philo->boolmutex == 0)
-				{
-					gettimeofday(&phl->clock->aux, NULL);
-					eat(phl, t_juego, t_real);
-				}
-				else
-				{
-					pthread_mutex_unlock(phl->philo->mutex);
-					phl->philo->boolmutex = 0;
-					printf("\nf[%d]desbloqueado mi mutex\n\n", phl->philo->name);
-				}
-				phl->philo->boolmutex = 0;
-				unlock(phl);
-				usleep(phl->philo->t_sleep);
-			}
+				posible_eat(phl, t_real);
 		}
 	}
 	exit(1);

@@ -38,7 +38,8 @@
 	- ya no se bloquean los hijos! de lujo. 
 	- un poco de reducción
 	- has creado una variable llamada windows parabloquear la pantalla, esta chulo como idea pero no hace nada.
-
+9 de octubre
+	- yya no tienes funciiones de mas de 25 lineas pero a cambio, tus filosofos no se mueren y no duermen. //todo//
 
 
 
