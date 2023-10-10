@@ -28,6 +28,7 @@ long int	realtime(t_list *phl)
 	long int	t_real;
 
 	gettimeofday(&phl->clock->end, NULL);
+	gettimeofday(&phl->clock->aux, NULL);
 	t_real = ft_time(phl->clock->start, phl->clock->end);
 	phl->clock->t_juego = ft_time(phl->clock->aux, phl->clock->end);
 	return (t_real);

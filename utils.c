@@ -12,30 +12,11 @@
 
 #include "philosophers.h"
 
-void	ft_crono(void)
-{
-	struct timeval	start_time;
-	struct timeval	end_time;
-	struct timeval	real_time;
-	long			elapsed_time;
-
-	gettimeofday(&start_time, NULL);
-	while (1)
-	{
-		gettimeofday(&end_time, NULL);
-		elapsed_time = (end_time.tv_sec - start_time.tv_sec)
-			* 1000 + (end_time.tv_usec - start_time.tv_usec);
-		real_time.tv_sec = elapsed_time / 1000;
-		real_time.tv_usec = elapsed_time % 1000;
-		printf("%ld.%06d\n", real_time.tv_sec, real_time.tv_usec);
-		usleep(10);
-	}
-}
-
 void	init(t_list *p_list, int argc, char **argv, int x)
 {
 	p_list->philo = malloc(sizeof(t_philo));
 	p_list->clock = malloc(sizeof(t_time));
+	gettimeofday(&p_list->clock->start, NULL);
 	p_list->philo->boolmutex = 0;
 	p_list->philo->name = x;
 	p_list->philo->mute_fork = x;
@@ -43,7 +24,7 @@ void	init(t_list *p_list, int argc, char **argv, int x)
 	if (pthread_mutex_init(p_list->philo->mutex, NULL) != 0)
 		ft_exit("un filosofo a muerto..", 2);
 	p_list->nph = ft_atoi(argv[1]);
-	p_list->philo->t_die = (ft_atoi(argv[2]) * 1000);
+	p_list->philo->t_die = (ft_atoi(argv[2]));
 	p_list->philo->t_eat = (ft_atoi(argv[3]) * 1000);
 	p_list->philo->t_sleep = (ft_atoi(argv[4]) * 1000);
 	p_list->philo->n_times_must_eat = -1;

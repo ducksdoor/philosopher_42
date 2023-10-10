@@ -63,7 +63,7 @@ void		fool(t_list *phl);
 void		die(t_list	*list, int x);
 void		lock(t_list *phl);
 void		unlock(t_list *phl);
-void		eat(t_list *x, int t_juego, long t_real);
+void		eat(t_list *x, long t_real);
 long		ft_time(struct timeval start, struct timeval end);
 long int	realtime(t_list *phl);
 void		showme(t_list *list);
