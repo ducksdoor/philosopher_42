@@ -27,13 +27,13 @@ void	init(t_list *p_list, int argc, char **argv, int x)
 	p_list->philo->t_die = (ft_atoi(argv[2]));
 	p_list->philo->t_eat = (ft_atoi(argv[3]) * 1000);
 	p_list->philo->t_sleep = (ft_atoi(argv[4]) * 1000);
-	p_list->philo->n_times_must_eat = -1;
+	p_list->philo->need_eat = -1;
 	p_list->philo->thread = malloc(sizeof(pthread_t));
 	p_list->printmutex = malloc(sizeof(pthread_mutex_t));
 	if (pthread_mutex_init(p_list->printmutex, NULL) != 0)
 		ft_exit("no se creó un hilo", 2);
 	if (argc == 6)
-		p_list->philo->n_times_must_eat = ft_atoi(argv[5]);
+		p_list->philo->need_eat = ft_atoi(argv[5]);
 	if (0 != pthread_create(&p_list->philo->thread, NULL, thread_ft, p_list))
 		ft_exit("error en la creación del hilo", 2);
 }
@@ -59,4 +59,31 @@ int	ft_atoi(char *str)
 		i++;
 	}
 	return (res * sign);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int		dif;
+	size_t	x;
+
+	dif = 0;
+	x = 0;
+	while (!dif && (s1[x] != '\0') && (s2[x] != '\0'))
+	{
+		dif = (unsigned char)s1[x] - (unsigned char)s2[x];
+		x++;
+	}
+	if (!dif && (s1[x] == '\0' || s2[x] == '\0'))
+		dif = (unsigned char)s1[x] - (unsigned char)s2[x];
+	return (dif);
+}
+
+int	ft_strlen(char *s)
+{
+	int	x;
+
+	x = 0;
+	while (s[x] != '\0')
+		x++;
+	return (x);
 }

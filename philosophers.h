@@ -46,7 +46,7 @@ typedef struct s_philo
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
-	int				n_times_must_eat;
+	int				need_eat;
 }				t_philo;
 
 t_list		*ft_lstlast(t_list *lst);
@@ -56,6 +56,7 @@ int			main(int argc, char **argv);
 void		init(t_list *philo_list, int argc, char **argv, int x);
 int			ft_atoi(char *str);
 int			ft_strlen(char *s);
+int			ft_strcmp(const char *s1, const char *s2);
 void		ft_exit(char *texto, int fd);
 void		ft_crono(void);
 void		*thread_ft(void *arg);
@@ -65,7 +66,9 @@ void		lock(t_list *phl);
 void		unlock(t_list *phl);
 void		eat(t_list *x, long t_real);
 long		ft_time(struct timeval start, struct timeval end);
-long int	realtime(t_list *phl);
+long int	realtime(t_list *phl, char *status);
+void		ft_hand(t_list *phl, char *action, long int t_real);
+void		lookprint(long int t_real, t_list *phl, char *objeto);
 void		showme(t_list *list);
 
 #endif

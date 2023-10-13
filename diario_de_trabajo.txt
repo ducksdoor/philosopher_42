@@ -40,9 +40,14 @@
 	- has creado una variable llamada windows parabloquear la pantalla, esta chulo como idea pero no hace nada.
 9 de octubre
 	- yya no tienes funciiones de mas de 25 lineas pero a cambio, tus filosofos no se mueren y no duermen. //todo//
-
-
-
+13 de octubre
+	- me he tomado un descanso porque en el trabajo estoy haciendo codigo y me esta bolando la cabeza
+	- hoy estoy barriendo la funcion de comer, estoy haciendo las funciones de los status, al final sirven para no repetir código.. enttre que me da por poner tildes a veeces y que intento no repetir ni una linea de código empiezo a parecerme a un programador experimentado hahahahaha
+	-¿Algun dia leere yo o leera alguien todo esto? quizá tendria que poner chistes o cosas asi para que sea interesante... o cotilleos, quiza algún dia sea famoso y saquen trapos sucios de mis diarios de programación... a saber...
+	-Acabo de suspender el philo de un compañero y me siento mal, le absorve el black hole en 3 dias ... 
+	- Bueno, centrandonos en el trabajo, hoy ha sido muy muy productivo la verdad, con un poco de suerte ya tengo el proyecto terminado...
+	- Quizá toque crear una función para escribir guaparda....
+	- YA LA TENGO! aunque realmente son las 12 y pico,... me voy a casa, dentro de poco espero tener este royecto terminado, que llevo casi 20 días...
 
 
 
