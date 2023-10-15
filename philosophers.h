@@ -19,6 +19,11 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+/* typedef struct s_data
+{
+	pthread_mutex_t		mutexprint;
+}	t_data;
+ */
 typedef struct s_list
 {
 	struct s_philo	*philo;
@@ -51,24 +56,22 @@ typedef struct s_philo
 
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
-t_list		*create_list_filo(int argc, char **argv);
-int			main(int argc, char **argv);
-void		init(t_list *philo_list, int argc, char **argv, int x);
+t_list		*create_list_filo(char **argv, pthread_mutex_t *printmtx);
+void		init(t_list *phl, char **argv, int x, pthread_mutex_t *printmtx);
+void		segurity(int argc, char **argv);
 int			ft_atoi(char *str);
 int			ft_strlen(char *s);
 int			ft_strcmp(const char *s1, const char *s2);
 void		ft_exit(char *texto, int fd);
 void		ft_crono(void);
 void		*thread_ft(void *arg);
-void		fool(t_list *phl);
 void		die(t_list	*list, int x);
-void		lock(t_list *phl);
-void		unlock(t_list *phl);
 void		eat(t_list *x, long t_real);
 long		ft_time(struct timeval start, struct timeval end);
 long int	realtime(t_list *phl, char *status);
 void		ft_hand(t_list *phl, char *action, long int t_real);
-void		lookprint(long int t_real, t_list *phl, char *objeto);
+void		lookprint(long int t_real, t_list *phl, char *objeto, char *action);
+
 void		showme(t_list *list);
 
 #endif

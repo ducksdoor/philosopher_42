@@ -12,30 +12,30 @@
 
 #include "philosophers.h"
 
-t_list	*create_list_filo(int argc, char **argv)
+t_list	*create_list_filo(char **argv, pthread_mutex_t *printmtx)
 {
 	int				x;
-	t_list			*filolist;
+	t_list			*phl;
 	t_list			*philo;
 	t_list			*xaus;
 
-	filolist = malloc(sizeof(t_list));
-	if (!filolist)
+	phl = malloc(sizeof(t_list));
+	if (!phl)
 		return (NULL);
 	x = 2;
-	init(filolist, argc, argv, (x -1));
+	init(phl, argv, (x -1), printmtx);
 	while (x <= ft_atoi(argv[1]))
 	{
 		philo = malloc(sizeof(t_list));
 		if (!philo)
 			return (NULL);
-		init(philo, argc, argv, x);
-		ft_lstadd_back(&filolist, philo);
+		init(philo, argv, x, printmtx);
+		ft_lstadd_back(&phl, philo);
 		x++;
 	}
-	xaus = ft_lstlast(filolist);
-	xaus->next = filolist;
-	return (filolist);
+	xaus = ft_lstlast(phl);
+	xaus->next = phl;
+	return (phl);
 }
 
 /* void leaks(void)
@@ -47,15 +47,15 @@ t_list	*create_list_filo(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_list			*p_list;
+	pthread_mutex_t	*printmutex;
 	int				x;
 
-	if (argc != 5 && argc != 6)
-		ft_exit("Número incorrecto de argumentos", 2);
-	if (argc == 6 && argv[5] <= 0)
-		ft_exit("Número de veces de comer erroneo", 2);
-	p_list = create_list_filo(argc, argv);
+	segurity(argc, argv);
+	printmutex = malloc(sizeof(pthread_mutex_t));
+	if (pthread_mutex_init(printmutex, NULL) != 0)
+		ft_exit("no se creó un hilo", 2);
+	p_list = create_list_filo(argv, printmutex);
 	x = 1;
-	//showme(p_list);
 	while (x <= ft_atoi(argv[1]))
 	{
 		pthread_join(p_list->philo->thread, NULL);
@@ -65,18 +65,15 @@ int	main(int argc, char **argv)
 }
 
 /* to do
-----quiza dividir el init en tres pasos o al menos que 
-la función que crea los procesos sea distinta que la de los tenedores
+
+---->>>>>>>> hay que hacer un booliano que diga si tienes suficientes comidas ilimitadas o no
+--> para ello usar la función static select de thread.c ^^.
+
+---la funcióon de pintar hace que sean lentos y por tanto que se mueran o se molesten, quiero mejorar la función de bloquear
 
 
 ---->gestionar que los filosofos entren a comer hasta el infinito si no esta el numero opcional
---->Rebajar  en lineas la función de los hilos, muy importante.
---->quitar los printf
 
----> que no sea negativo el numero que entra. 
-	---> los filosofos tienen que ser capaces de acceder al tenedor del siguiente, 
----> Crear los tenedores
----> Porque el tiempo que se da no es preciso?
 ---> leaks? entender como se cierra todo sin leaks
 ---> Cerrar todos los hilos desde uno de ellos...
 ---> 

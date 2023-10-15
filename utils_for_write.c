@@ -12,59 +12,47 @@
 
 #include "philosophers.h"
 
-void	lookprint(long int t_real, t_list *phl, char *objeto)
+void	lookprint(long int t_real, t_list *phl, char *objeto, char *action)
 {
-	printf("\033[1;34m [%ld] \033[0m", t_real);
-	printf("El filósofo \033[1;33m%d\033[0m usó: ", phl->philo->name);
-	printf("\033[1;32m %s \033[0m \n", objeto);
-}
-
-void	lock(t_list *phl)
-{
-	int	x;
-
-	x = 0;
-	while (x < phl->nph)
+	pthread_mutex_lock(phl->printmutex);
+	printf("\n \033[1;34m [%ld] \033[0m", t_real);
+	printf("El filósofo numero: \033[1;33m%d\033[0m", phl->philo->name);
+	if (0 == ft_strcmp("comer", action))
+		printf("\033[1;32m esta comiendo \033[0m \n");
+	if (0 == ft_strcmp("dormir", action))
+		printf(" \033[1;32m esta durmiendo \033[0m \n");
+	if (0 == ft_strcmp("uso", action))
+		printf(" uso \033[1;32m %s \033[0m \n", objeto);
+	if (0 == ft_strcmp("soltar", action))
+		printf(" solto\033[1;32m %s \033[0m \n", objeto);
+	if (0 == ft_strcmp("pensar", action))
 	{
-		pthread_mutex_lock(phl->printmutex);
-		phl = phl->next;
-		x++;
+		printf(" esta \033[1;32m pensando \033[0m");
+		printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
-}
-
-void	unlock(t_list *phl)
-{
-	int	x;
-
-	x = 0;
-	while (x < phl->nph)
-	{
-		pthread_mutex_unlock(phl->printmutex);
-		phl = phl->next;
-		x++;
-	}
+	pthread_mutex_unlock(phl->printmutex);
 }
 
 void	ft_exit(char *texto, int fd)
 {
 	write(fd, texto, ft_strlen(texto));
-	exit(fd);
+	exit(2);
 }
 
 void	ft_hand(t_list *phl, char *action, long int t_real)
 {
 	if (0 == ft_strcmp("eat", action))
 	{
-		printf("[%ld]filosofo %d uso tenedor pana\n",t_real, phl->philo->name);
+		lookprint(t_real, phl, "tenedor del pana", "uso");
 		phl->philo->need_eat--;
-		printf("[%ld]filosofo %d uso comer\n",t_real, phl->philo->name);
+		lookprint(t_real, phl, "", "comer");
 		usleep(phl->philo->t_eat);
 		t_real = realtime(phl, "restore");
-		printf("[%ld]%d uso solto su tenedor\n",t_real, phl->philo->name);
+		lookprint(t_real, phl, "su tenedor", "soltar");
 		pthread_mutex_unlock(phl->philo->mutex);
 		phl->philo->boolmutex = 0;
 		pthread_mutex_unlock(phl->next->philo->mutex);
-		printf("[%ld]%d uso soltar tenedor del pana\n",t_real, phl->philo->name);
+		lookprint(t_real, phl, "tenedor del pana", "soltar");
 		phl->next->philo->boolmutex = 0;
 	}
 	return ;
