@@ -12,23 +12,24 @@
 
 #include "philosophers.h"
 
-void	lookprint(long int t_real, t_list *phl, char *objeto, char *action)
+void	lookprint(long int t_rel, t_list *phl, char *obj_con, char *action)
 {
 	pthread_mutex_lock(phl->printmutex);
-	printf("\n \033[1;34m [%ld] \033[0m", t_real);
+	printf("\n \033[1;34m [%ld] \033[0m", t_rel);
 	printf("El filósofo numero: \033[1;33m%d\033[0m", phl->philo->name);
 	if (0 == ft_strcmp("comer", action))
 		printf("\033[1;32m esta comiendo \033[0m \n");
 	if (0 == ft_strcmp("dormir", action))
 		printf(" \033[1;32m esta durmiendo \033[0m \n");
 	if (0 == ft_strcmp("uso", action))
-		printf(" uso \033[1;32m %s \033[0m \n", objeto);
+		printf(" uso \033[1;32m %s \033[0m \n", obj_con);
 	if (0 == ft_strcmp("soltar", action))
-		printf(" solto\033[1;32m %s \033[0m \n", objeto);
+		printf(" solto\033[1;32m %s \033[0m \n", obj_con);
 	if (0 == ft_strcmp("pensar", action))
 	{
 		printf(" esta \033[1;32m pensando \033[0m");
-		printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
+		if (0 == ft_strcmp("limitado", obj_con))
+			printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
 	pthread_mutex_unlock(phl->printmutex);
 }
@@ -50,10 +51,10 @@ void	ft_hand(t_list *phl, char *action, long int t_real)
 		t_real = realtime(phl, "restore");
 		lookprint(t_real, phl, "su tenedor", "soltar");
 		pthread_mutex_unlock(phl->philo->mutex);
-		phl->philo->boolmutex = 0;
+		phl->philo->boolmtx = 0;
 		pthread_mutex_unlock(phl->next->philo->mutex);
 		lookprint(t_real, phl, "tenedor del pana", "soltar");
-		phl->next->philo->boolmutex = 0;
+		phl->next->philo->boolmtx = 0;
 	}
 	return ;
 }

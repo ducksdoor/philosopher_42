@@ -17,7 +17,7 @@ void	init(t_list *p_list, char **argv, int x, pthread_mutex_t *printmtx)
 	p_list->philo = malloc(sizeof(t_philo));
 	p_list->clock = malloc(sizeof(t_time));
 	gettimeofday(&p_list->clock->start, NULL);
-	p_list->philo->boolmutex = 0;
+	p_list->philo->boolmtx = 0;
 	p_list->philo->name = x;
 	p_list->philo->mute_fork = x;
 	p_list->philo->mutex = malloc(sizeof(pthread_mutex_t));

@@ -46,7 +46,7 @@ typedef struct s_philo
 	int				name;
 	pthread_t		thread;
 	pthread_mutex_t	*mutex;
-	int				boolmutex;
+	int				boolmtx;
 	int				mute_fork;
 	int				t_die;
 	int				t_eat;
@@ -65,12 +65,14 @@ int			ft_strcmp(const char *s1, const char *s2);
 void		ft_exit(char *texto, int fd);
 void		ft_crono(void);
 void		*thread_ft(void *arg);
+void		ft_select(t_list *phl, long int t_real);
+void		posible_eat(t_list *phl, long int t_real, char *condicion);
+void		eat(t_list *x, long t_real, char *condicion);
 void		die(t_list	*list, int x);
-void		eat(t_list *x, long t_real);
 long		ft_time(struct timeval start, struct timeval end);
 long int	realtime(t_list *phl, char *status);
 void		ft_hand(t_list *phl, char *action, long int t_real);
-void		lookprint(long int t_real, t_list *phl, char *objeto, char *action);
+void		lookprint(long int t_rel, t_list *phl, char *obj_con, char *action);
 
 void		showme(t_list *list);
 

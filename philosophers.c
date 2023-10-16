@@ -49,6 +49,7 @@ int	main(int argc, char **argv)
 	t_list			*p_list;
 	pthread_mutex_t	*printmutex;
 	int				x;
+	int				finish;
 
 	segurity(argc, argv);
 	printmutex = malloc(sizeof(pthread_mutex_t));
@@ -66,15 +67,13 @@ int	main(int argc, char **argv)
 
 /* to do
 
----->>>>>>>> hay que hacer un booliano que diga si tienes suficientes comidas ilimitadas o no
---> para ello usar la función static select de thread.c ^^.
+---->>>>>>>> limpieza de hilos cuando los filosofos mueren
+---->>>>> filosofo que se esperan entre si cuando acaban de comer
+--->>>> limpieza de hilos cuando se acaban l comida
 
----la funcióon de pintar hace que sean lentos y por tanto que se mueran o se molesten, quiero mejorar la función de bloquear
-
-
----->gestionar que los filosofos entren a comer hasta el infinito si no esta el numero opcional
 
 ---> leaks? entender como se cierra todo sin leaks
+
 ---> Cerrar todos los hilos desde uno de ellos...
 ---> 
 ---> 
