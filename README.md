@@ -1,5 +1,5 @@
 # philosopher_42
-otro proyecto del cursus 42, este un poquito mas abstracto pero más entretenido, creo, espero, deseo...
+En este proyecto no voy a dejar guia como tal, os dejo la documentación por si a alguien le puede ser útil y alguna que otra explicación.
 
 # funciones permitidas:
 
@@ -81,12 +81,25 @@ Se utiliza en programación multihilo para liberar o desbloquear la cerradura (l
 
 
 
-# Como funciona esto:
+# Como plantearse el proyecto:
 
-0 comprobación de errores (numeros positivos, suficientes argumentos)
-1 crea una lista de los filosofos
+0 comprobación de errores de los argumentos:
+ - que no tenga suficientes argumentos o demasiados.
+ - que tenga números negativos o ceros.
+ - que todo sean números y no letras.
+   
+
+1 crea una lista de los filosofos. En mi ejecución, cada hilo tiene su propia lista con todos los datos necesarios para el proceso.
+
+ - La lista de filosofos es circular, es decir, el último filosofo apunta al primero
+
+2 Los filosofos intentan comer, todos a la vez, gracias a los boolianos, los hilos no se quedan bloqueados de forma infinita cuando no pueden bloquear el mutex del compañero, ademas, tengo tambien bloqueado el printf para que no puedan pisarse los unos a los otros.
+
+3 En el momento en que un filosofo muera o todos los filosofos coman lo necesario, empezamos con la limpieza. 
 
 
+# preguntas o pruebas típicas:
+ - LEAKS LEAKS Y MAS LEAKS.
 
 # Comandos Útiles:
 
