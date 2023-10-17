@@ -14,7 +14,10 @@
 
 void	lookprint(long int t_rel, t_list *phl, char *obj_con, char *action)
 {
-	pthread_mutex_lock(phl->printmutex);
+	pthread_mutex_lock(phl->inf->printmutex);
+	printf("estas lleno? %d/%d", phl->inf->fully, phl->inf->nph);
+	if (phl->philo->need_eat == 0)
+		return ;
 	printf("\n \033[1;34m [%ld] \033[0m", t_rel);
 	printf("El filósofo numero: \033[1;33m%d\033[0m", phl->philo->name);
 	if (0 == ft_strcmp("comer", action))
@@ -31,7 +34,7 @@ void	lookprint(long int t_rel, t_list *phl, char *obj_con, char *action)
 		if (0 == ft_strcmp("limitado", obj_con))
 			printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
-	pthread_mutex_unlock(phl->printmutex);
+	pthread_mutex_unlock(phl->inf->printmutex);
 }
 
 void	ft_exit(char *texto, int fd)
@@ -40,21 +43,32 @@ void	ft_exit(char *texto, int fd)
 	exit(2);
 }
 
-void	ft_hand(t_list *phl, char *action, long int t_real)
+void	ft_fully(t_list *phl)
 {
-	if (0 == ft_strcmp("eat", action))
-	{
-		lookprint(t_real, phl, "tenedor del pana", "uso");
-		phl->philo->need_eat--;
-		lookprint(t_real, phl, "", "comer");
-		usleep(phl->philo->t_eat);
-		t_real = realtime(phl, "restore");
-		lookprint(t_real, phl, "su tenedor", "soltar");
-		pthread_mutex_unlock(phl->philo->mutex);
-		phl->philo->boolmtx = 0;
-		pthread_mutex_unlock(phl->next->philo->mutex);
-		lookprint(t_real, phl, "tenedor del pana", "soltar");
-		phl->next->philo->boolmtx = 0;
-	}
-	return ;
+	phl->inf->fully++;
+	phl->philo->need_eat++;
+}
+
+void	ft_hand(t_list *phl, long int t_real)
+{
+	lookprint(t_real, phl, "tenedor del pana", "uso");
+	phl->philo->need_eat--;
+	lookprint(t_real, phl, "", "comer");
+	usleep(phl->inf->t_eat);
+	t_real = realtime(phl, "restore");
+	lookprint(t_real, phl, "su tenedor", "soltar");
+	pthread_mutex_unlock(phl->philo->mutex);
+/* 	phl->philo->boolmtx = 0; */
+	pthread_mutex_unlock(phl->next->philo->mutex);
+	lookprint(t_real, phl, "tenedor del pana", "soltar");
+/* 	phl->next->philo->boolmtx = 0; */
+}
+
+void	die(t_list	*list, int x)
+{
+	printf("El filoso n [%d] ha muerto\n", list->philo->name);
+	printf("el tiempo de muerte es : %d\n", x);
+	pthread_mutex_destroy(list->philo->mutex);
+	ft_exit("un filosofo a muerto..", 1);
+	exit(1);
 }

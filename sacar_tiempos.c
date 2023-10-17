@@ -15,10 +15,11 @@
 long	ft_time(struct timeval start, struct timeval end)
 {
 	long	x;
-	long seconds_elapsed = end.tv_sec - start.tv_sec;
-	long microseconds_elapsed = end.tv_usec - start.tv_usec;
+	long seconds_elapsed;
+	long microseconds_elapsed;
 
-
+	seconds_elapsed = end.tv_sec - start.tv_sec;
+	microseconds_elapsed = end.tv_usec - start.tv_usec;
 	x = (seconds_elapsed * 1000) + (microseconds_elapsed / 1000);
 	return (x);
 }
@@ -34,8 +35,8 @@ long int	realtime(t_list *phl, char *status)
 		gettimeofday(&phl->clock->end, NULL);
 		phl->clock->t_juego = ft_time(phl->clock->aux, phl->clock->end);
 	}
-	t_real = ft_time(phl->clock->start, phl->clock->end);
-	if (phl->clock->t_juego >= phl->philo->t_die)
+	t_real = ft_time(phl->inf->start, phl->clock->end);
+	if (phl->clock->t_juego >= phl->inf->t_die)
 		die(phl, t_real);
 	return (t_real);
 }

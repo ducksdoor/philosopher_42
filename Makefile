@@ -9,11 +9,10 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g3
 
 SOURCE = philosophers.c utils.c utils_for_write.c \
 		 init.c segurity.c\
-		 showmefordebug.c \
 		 list_for_philo.c thread.c sacar_tiempos.c
 
 %.o: %.c
@@ -42,5 +41,11 @@ fclean:
 				@echo "\n${GRAY} ◎ $(RED)All objects and executable cleaned successfully${GRAY} ◎$(DEF_COLOR)\n"
 
 re: fclean all 
+
+#thread: CFLAGS += -fsanitize=thread
+#thread: CFLAGS += -g3
+#thread: CFLAGS += -pthread
+#thread: re
+
 
 .PHONY: all clean fclean re 

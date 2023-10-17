@@ -19,23 +19,27 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-/* typedef struct s_data
+typedef struct s_inf
 {
-	pthread_mutex_t		mutexprint;
-}	t_data;
- */
+	int				fully;
+	int				nph;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	struct timeval	start;
+	pthread_mutex_t	*printmutex;
+}					t_inf;
+
 typedef struct s_list
 {
+	struct s_inf	*inf;
 	struct s_philo	*philo;
 	struct s_list	*next;
-	pthread_mutex_t	*printmutex;
-	int				nph;
 	struct s_time	*clock;
 }				t_list;
 
 typedef struct s_time
 {
-	struct timeval	start;
 	struct timeval	end;
 	struct timeval	aux;
 	int				t_juego;
@@ -48,16 +52,14 @@ typedef struct s_philo
 	pthread_mutex_t	*mutex;
 	int				boolmtx;
 	int				mute_fork;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
 	int				need_eat;
 }				t_philo;
 
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
-t_list		*create_list_filo(char **argv, pthread_mutex_t *printmtx);
-void		init(t_list *phl, char **argv, int x, pthread_mutex_t *printmtx);
+t_list		*create_list_ph(char **argv, t_list *phl, t_inf *inf);
+void		init(t_list *phl, char **argv, int x, t_inf *inf);
+void		init_inf(t_inf *inf, char **argv, pthread_mutex_t *printmutex);
 void		segurity(int argc, char **argv);
 int			ft_atoi(char *str);
 int			ft_strlen(char *s);
@@ -71,9 +73,9 @@ void		eat(t_list *x, long t_real, char *condicion);
 void		die(t_list	*list, int x);
 long		ft_time(struct timeval start, struct timeval end);
 long int	realtime(t_list *phl, char *status);
-void		ft_hand(t_list *phl, char *action, long int t_real);
+void		ft_hand(t_list *phl, long int t_real);
 void		lookprint(long int t_rel, t_list *phl, char *obj_con, char *action);
-
+void		ft_fully(t_list *phl);
 void		showme(t_list *list);
 
 #endif
