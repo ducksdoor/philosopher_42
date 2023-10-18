@@ -31,7 +31,6 @@ void	init(t_list *phl, char **argv, int x, t_inf *inf)
 	phl->clock = malloc(sizeof(t_time));
 	phl->philo->boolmtx = 0;
 	phl->philo->name = x;
-	phl->philo->mute_fork = x;
 	phl->philo->mutex = malloc(sizeof(pthread_mutex_t));
 	if (pthread_mutex_init(phl->philo->mutex, NULL) != 0)
 		ft_exit("no se pudo crear un tenedor", 2);

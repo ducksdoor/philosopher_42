@@ -24,9 +24,9 @@ long	ft_time(struct timeval start, struct timeval end)
 	return (x);
 }
 
-long int	realtime(t_list *phl, char *status)
+long	realtime(t_list *phl, char *status)
 {
-	long int	t_real;
+	long	t_real;
 
 	if (0 == ft_strcmp("restore", status))
 		gettimeofday(&phl->clock->aux, NULL);

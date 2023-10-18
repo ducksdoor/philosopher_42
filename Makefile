@@ -9,7 +9,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g3
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3   #-fsanitize=thread -g3
 
 SOURCE = philosophers.c utils.c utils_for_write.c \
 		 init.c segurity.c\

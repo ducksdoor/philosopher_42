@@ -12,26 +12,27 @@
 
 #include "philosophers.h"
 
-void	lookprint(long int t_rel, t_list *phl, char *obj_con, char *action)
+void	prin(long t_rel, t_list *phl, char *ob_con, char *act)
 {
 	pthread_mutex_lock(phl->inf->printmutex);
-	printf("estas lleno? %d/%d", phl->inf->fully, phl->inf->nph);
+	printf("estas lleno? %d/%d\n", phl->inf->fully, phl->inf->nph);
+	printf("tiempo real = [%ld]\n", t_rel);
 	if (phl->philo->need_eat == 0)
 		return ;
 	printf("\n \033[1;34m [%ld] \033[0m", t_rel);
 	printf("El filósofo numero: \033[1;33m%d\033[0m", phl->philo->name);
-	if (0 == ft_strcmp("comer", action))
+	if (0 == ft_strcmp("comer", act))
 		printf("\033[1;32m esta comiendo \033[0m \n");
-	if (0 == ft_strcmp("dormir", action))
+	if (0 == ft_strcmp("dormir", act))
 		printf(" \033[1;32m esta durmiendo \033[0m \n");
-	if (0 == ft_strcmp("uso", action))
-		printf(" uso \033[1;32m %s \033[0m \n", obj_con);
-	if (0 == ft_strcmp("soltar", action))
-		printf(" solto\033[1;32m %s \033[0m \n", obj_con);
-	if (0 == ft_strcmp("pensar", action))
+	if (0 == ft_strcmp("uso", act))
+		printf(" uso \033[1;32m %s \033[0m \n", ob_con);
+	if (0 == ft_strcmp("soltar", act))
+		printf(" solto\033[1;32m %s \033[0m \n", ob_con);
+	if (0 == ft_strcmp("pensar", act))
 	{
 		printf(" esta \033[1;32m pensando \033[0m");
-		if (0 == ft_strcmp("limitado", obj_con))
+		if (0 == ft_strcmp("limitado", ob_con))
 			printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
 	pthread_mutex_unlock(phl->inf->printmutex);
@@ -48,21 +49,22 @@ void	ft_fully(t_list *phl)
 	phl->inf->fully++;
 	phl->philo->need_eat++;
 }
-
+/* 
 void	ft_hand(t_list *phl, long int t_real)
 {
-	lookprint(t_real, phl, "tenedor del pana", "uso");
+	prin(t_real, phl, "tenedor del pana", "uso");
 	phl->philo->need_eat--;
-	lookprint(t_real, phl, "", "comer");
+	prin(t_real, phl, "", "comer");
 	usleep(phl->inf->t_eat);
 	t_real = realtime(phl, "restore");
-	lookprint(t_real, phl, "su tenedor", "soltar");
+	prin(t_real, phl, "su tenedor", "soltar");
 	pthread_mutex_unlock(phl->philo->mutex);
-/* 	phl->philo->boolmtx = 0; */
+// 	phl->philo->boolmtx = 0;
 	pthread_mutex_unlock(phl->next->philo->mutex);
-	lookprint(t_real, phl, "tenedor del pana", "soltar");
-/* 	phl->next->philo->boolmtx = 0; */
-}
+	phl->next->philo->boolmtx = 0;
+	prin(t_real, phl, "tenedor del pana", "soltar");
+// 	phl->next->philo->boolmtx = 0;
+} */
 
 void	die(t_list	*list, int x)
 {

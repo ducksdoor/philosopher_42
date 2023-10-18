@@ -51,31 +51,30 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*mutex;
 	int				boolmtx;
-	int				mute_fork;
 	int				need_eat;
 }				t_philo;
 
-t_list		*ft_lstlast(t_list *lst);
-void		ft_lstadd_back(t_list **lst, t_list *new);
-t_list		*create_list_ph(char **argv, t_list *phl, t_inf *inf);
-void		init(t_list *phl, char **argv, int x, t_inf *inf);
-void		init_inf(t_inf *inf, char **argv, pthread_mutex_t *printmutex);
-void		segurity(int argc, char **argv);
-int			ft_atoi(char *str);
-int			ft_strlen(char *s);
-int			ft_strcmp(const char *s1, const char *s2);
-void		ft_exit(char *texto, int fd);
-void		ft_crono(void);
-void		*thread_ft(void *arg);
-void		ft_select(t_list *phl, long int t_real);
-void		posible_eat(t_list *phl, long int t_real, char *condicion);
-void		eat(t_list *x, long t_real, char *condicion);
-void		die(t_list	*list, int x);
-long		ft_time(struct timeval start, struct timeval end);
-long int	realtime(t_list *phl, char *status);
-void		ft_hand(t_list *phl, long int t_real);
-void		lookprint(long int t_rel, t_list *phl, char *obj_con, char *action);
-void		ft_fully(t_list *phl);
-void		showme(t_list *list);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*create_list_ph(char **argv, t_list *phl, t_inf *inf);
+void	init(t_list *phl, char **argv, int x, t_inf *inf);
+void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *printmutex);
+void	segurity(int argc, char **argv);
+int		ft_atoi(char *str);
+int		ft_strlen(char *s);
+int		ft_strcmp(const char *s1, const char *s2);
+void	ft_exit(char *texto, int fd);
+void	ft_crono(void);
+void	*thread_ft(void *arg);
+void	ft_select(t_list *phl, long int t_real);
+/* void		posible_eat(t_list *phl, long int t_real, char *condicion); */
+void	eat(t_list *x, long t_real);
+void	die(t_list	*list, int x);
+long	ft_time(struct timeval start, struct timeval end);
+long	realtime(t_list *phl, char *status);
+/* void		ft_hand(t_list *phl, long int t_real); */
+void	prin(long t_rel, t_list *phl, char *ob_con, char *act);
+void	ft_fully(t_list *phl);
+void	showme(t_list *list);
 
 #endif
