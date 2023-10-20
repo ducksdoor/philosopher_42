@@ -72,6 +72,7 @@ void	eat(t_list *x, long t_real);
 void	die(t_list	*list, int x);
 long	ft_time(struct timeval start, struct timeval end);
 long	realtime(t_list *phl, char *status);
+int		block(t_list *phl, long t_real);
 /* void		ft_hand(t_list *phl, long int t_real); */
 void	prin(long t_rel, t_list *phl, char *ob_con, char *act);
 void	ft_fully(t_list *phl);

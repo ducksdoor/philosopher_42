@@ -12,38 +12,33 @@
 
 #include "philosophers.h"
 
-static void	ft_wait(t_list *phl)
+/* static void	ft_wait(t_list *phl)
 {
 	while (phl->next->philo->boolmtx == 1)
 	{
 		usleep (20);
 	}
-}
+} */
+//
 
 void	ft_select(t_list *phl, long int t_real)
 {
+	int	otherbool;
 
 	while (phl->philo->need_eat > 0)
 	{
-		t_real = realtime(phl, "normal");
-		ft_wait(phl);
-		phl->philo->boolmtx = 1;
-		pthread_mutex_lock(phl->philo->mutex);
-		prin(t_real, phl, "tenedor", "uso");
-		if (phl->next->philo->boolmtx == 0)
+		otherbool = block(phl, t_real);
+		if (otherbool == 1)
 		{
-			phl->next->philo->boolmtx = 1;
-			pthread_mutex_lock(phl->next->philo->mutex);
-			t_real = realtime(phl, "normal");
-			prin(t_real, phl, "tenedor del pana", "uso");
 			prin(t_real, phl, "", "comer");
 			usleep(phl->inf->t_eat);
-			t_real = realtime(phl, "restore");
 			phl->philo->need_eat--;
 			phl->philo->boolmtx = 0;
 			pthread_mutex_unlock(phl->philo->mutex);
 			phl->next->philo->boolmtx = 0;
 			pthread_mutex_unlock(phl->next->philo->mutex);
+			t_real = realtime(phl, "restore");
+			prin(t_real, phl, "", "dormir");
 			usleep(phl->inf->t_sleep);
 		}
 	}
@@ -56,7 +51,7 @@ void	*thread_ft(void *arg)
 
 	phl = arg;
 	if (phl->philo->name % 2 == 0)
-		usleep (20000);
+		usleep (20);
 	t_real = gettimeofday(&phl->clock->aux, NULL);
 	if (phl->philo->need_eat > 0)
 		ft_select(phl, t_real);

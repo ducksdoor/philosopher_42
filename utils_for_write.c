@@ -14,9 +14,8 @@
 
 void	prin(long t_rel, t_list *phl, char *ob_con, char *act)
 {
+	t_rel = realtime(phl, "normal");
 	pthread_mutex_lock(phl->inf->printmutex);
-	printf("estas lleno? %d/%d\n", phl->inf->fully, phl->inf->nph);
-	printf("tiempo real = [%ld]\n", t_rel);
 	if (phl->philo->need_eat == 0)
 		return ;
 	printf("\n \033[1;34m [%ld] \033[0m", t_rel);
@@ -35,6 +34,8 @@ void	prin(long t_rel, t_list *phl, char *ob_con, char *act)
 		if (0 == ft_strcmp("limitado", ob_con))
 			printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
+	printf("estas lleno? %d/%d\n", phl->inf->fully, phl->inf->nph);
+	printf("tiempo real = [%ld]\n", t_rel);
 	pthread_mutex_unlock(phl->inf->printmutex);
 }
 

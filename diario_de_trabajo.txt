@@ -64,7 +64,9 @@
 	- bueno, ya esta todo rectificado, ahora se vuelven a bloquear... pero supongo que antes estaba mal, que se le va a hacer.
 	- vuelven a chocarse entre ellos...
 	- poco a poco, mañana sera otro dia! al menos has restructurado las listas...
-	
+20 de octubre
+	- Dias rartos, me he cargado mi programa y me he quedado sin pareja, que maravilla.
+	- funcionan! voy a subir este mal o bien un git para tener la version! estara con el comit -m restore! 
 
 
 
