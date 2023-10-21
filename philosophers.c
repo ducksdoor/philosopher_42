@@ -20,7 +20,7 @@ t_list	*create_list_ph(char **argv, t_list *phl, t_inf *inf)
 
 	x = 1;
 	init(phl, argv, x, inf);
-	while (x < ft_atoi(argv[1]))
+	while (x <= ft_atoi(argv[1]))
 	{
 		x++;
 		philo = malloc(sizeof(t_list));
@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 	phl = malloc(sizeof(t_list));
 	if (!phl)
 		ft_exit("error malogarral", 2);
-	phl = create_list_ph(argv, phl, inf); //aqui estas trabajando
+	phl = create_list_ph(argv, phl, inf);
 	while (x <= ft_atoi(argv[1]))
 	{
 		pthread_join(phl->philo->thread, NULL);

@@ -63,24 +63,28 @@ int	ft_strlen(char *s)
 }
 
 
-int	block(t_list *phl, long t_real)
+void	block(t_list *phl, long t_real)
 {
-	int	cont;
-
-	cont = 0;
-	while (phl->philo->boolmtx == 1)
-		usleep(10);
-	phl->philo->boolmtx = 1;
-	pthread_mutex_lock(phl->philo->mutex);
-	while (phl->next->philo->boolmtx == 1)
+	while (1)
 	{
-		phl->philo->boolmtx = 0;
-		pthread_mutex_unlock(phl->philo->mutex);
-		usleep(1);
+		if (phl->philo->boolmtx == 0)
+		{
+			pthread_mutex_lock(phl->philo->mutex);
+			phl->philo->boolmtx = 1;
+			if (phl->next->philo->boolmtx == 0)
+			{
+				prin(t_real, phl, "tenedor", "uso");
+				pthread_mutex_lock(phl->next->philo->mutex);
+				phl->next->philo->boolmtx = 1;
+				prin(t_real, phl, "tenedor del pana", "uso");
+				return ;
+			}
+			else
+			{
+				pthread_mutex_unlock(phl->philo->mutex);
+				phl->philo->boolmtx = 0;
+			}
+		}
+		usleep(10);
 	}
-	prin(t_real, phl, "tenedor", "uso");
-	phl->next->philo->boolmtx = 1;
-	pthread_mutex_lock(phl->next->philo->mutex);
-	prin(t_real, phl, "tenedor del pana", "uso");
-	return (1);
 }

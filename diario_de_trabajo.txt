@@ -67,8 +67,9 @@
 20 de octubre
 	- Dias rartos, me he cargado mi programa y me he quedado sin pareja, que maravilla.
 	- funcionan! voy a subir este mal o bien un git para tener la version! estara con el comit -m restore! 
-
-
+21 de octubre
+	- parece que el código va tomando forma de nuevo, al estar todo medio construido es como poner masilla a unas ruinas, por tanto, hemos descubierto que es mas facil reconstruir algo que esta en ruinas .... o eso dicen aahahaha
+	- el problema ahora esta en que comen hasta todas las veces que pueden menos una y se bloquean....
 
 
 

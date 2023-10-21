@@ -15,6 +15,8 @@
 void	prin(long t_rel, t_list *phl, char *ob_con, char *act)
 {
 	t_rel = realtime(phl, "normal");
+	if (phl->clock->t_juego >= phl->inf->t_die)
+		die(phl, t_rel);
 	pthread_mutex_lock(phl->inf->printmutex);
 	if (phl->philo->need_eat == 0)
 		return ;
@@ -31,10 +33,10 @@ void	prin(long t_rel, t_list *phl, char *ob_con, char *act)
 	if (0 == ft_strcmp("pensar", act))
 	{
 		printf(" esta \033[1;32m pensando \033[0m");
-		if (0 == ft_strcmp("limitado", ob_con))
-			printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
+/* 		if (0 == ft_strcmp("limitado", ob_con)) */
+		printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
-	printf("estas lleno? %d/%d\n", phl->inf->fully, phl->inf->nph);
+	printf("filosos llenos?? %d/%d\n", phl->inf->fully, phl->inf->nph);
 	printf("tiempo real = [%ld]\n", t_rel);
 	pthread_mutex_unlock(phl->inf->printmutex);
 }
@@ -48,7 +50,7 @@ void	ft_exit(char *texto, int fd)
 void	ft_fully(t_list *phl)
 {
 	phl->inf->fully++;
-	phl->philo->need_eat++;
+	phl->philo->need_eat--;
 }
 /* 
 void	ft_hand(t_list *phl, long int t_real)
