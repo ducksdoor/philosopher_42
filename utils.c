@@ -86,5 +86,6 @@ void	block(t_list *phl, long t_real)
 			}
 		}
 		usleep(10);
+		t_real = realtime(phl, "normal");
 	}
 }

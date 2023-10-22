@@ -70,7 +70,9 @@
 21 de octubre
 	- parece que el código va tomando forma de nuevo, al estar todo medio construido es como poner masilla a unas ruinas, por tanto, hemos descubierto que es mas facil reconstruir algo que esta en ruinas .... o eso dicen aahahaha
 	- el problema ahora esta en que comen hasta todas las veces que pueden menos una y se bloquean....
-
+22 de octubre 
+	- ya funciona y sin los boolianos... hago un comit con bolianos comentados para por si la lio, se va a llamar "seguridad"
+	
 
 
 

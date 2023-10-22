@@ -18,8 +18,6 @@ void	prin(long t_rel, t_list *phl, char *ob_con, char *act)
 	if (phl->clock->t_juego >= phl->inf->t_die)
 		die(phl, t_rel);
 	pthread_mutex_lock(phl->inf->printmutex);
-	if (phl->philo->need_eat == 0)
-		return ;
 	printf("\n \033[1;34m [%ld] \033[0m", t_rel);
 	printf("El filósofo numero: \033[1;33m%d\033[0m", phl->philo->name);
 	if (0 == ft_strcmp("comer", act))
@@ -52,22 +50,6 @@ void	ft_fully(t_list *phl)
 	phl->inf->fully++;
 	phl->philo->need_eat--;
 }
-/* 
-void	ft_hand(t_list *phl, long int t_real)
-{
-	prin(t_real, phl, "tenedor del pana", "uso");
-	phl->philo->need_eat--;
-	prin(t_real, phl, "", "comer");
-	usleep(phl->inf->t_eat);
-	t_real = realtime(phl, "restore");
-	prin(t_real, phl, "su tenedor", "soltar");
-	pthread_mutex_unlock(phl->philo->mutex);
-// 	phl->philo->boolmtx = 0;
-	pthread_mutex_unlock(phl->next->philo->mutex);
-	phl->next->philo->boolmtx = 0;
-	prin(t_real, phl, "tenedor del pana", "soltar");
-// 	phl->next->philo->boolmtx = 0;
-} */
 
 void	die(t_list	*list, int x)
 {

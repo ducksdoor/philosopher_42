@@ -18,19 +18,26 @@ t_list	*create_list_ph(char **argv, t_list *phl, t_inf *inf)
 	t_list			*xaus;
 	int				x;
 
+	philo = NULL;
+	xaus = NULL;
 	x = 1;
 	init(phl, argv, x, inf);
-	while (x <= ft_atoi(argv[1]))
+	while (x < ft_atoi(argv[1]))
 	{
 		x++;
 		philo = malloc(sizeof(t_list));
 		if (!philo)
 			return (NULL);
 		init(philo, argv, x, inf);
-		ft_lstadd_back(&phl, philo);
+		if (phl == NULL)
+			phl = philo;
+		else
+			ft_lstadd_back(&phl, philo);
 	}
 	xaus = ft_lstlast(phl);
 	xaus->next = philo;
+	if (xaus)
+		xaus->next = phl;
 	return (phl);
 }
 
@@ -58,6 +65,7 @@ int	main(int argc, char **argv)
 	{
 		pthread_join(phl->philo->thread, NULL);
 		phl = phl->next;
+		x++;
 	}
 	ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
 }
