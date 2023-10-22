@@ -50,7 +50,6 @@ typedef struct s_philo
 	int				name;
 	pthread_t		thread;
 	pthread_mutex_t	*mutex;
-	int				boolmtx;
 	int				need_eat;
 }				t_philo;
 
@@ -67,15 +66,12 @@ void	ft_exit(char *texto, int fd);
 void	ft_crono(void);
 void	*thread_ft(void *arg);
 void	ft_select(t_list *phl, long int t_real);
-/* void		posible_eat(t_list *phl, long int t_real, char *condicion); */
 void	eat(t_list *x, long t_real);
 void	die(t_list	*list, int x);
 long	ft_time(struct timeval start, struct timeval end);
 long	realtime(t_list *phl, char *status);
-void	block(t_list *phl, long t_real);
-/* void		ft_hand(t_list *phl, long int t_real); */
-void	prin(long t_rel, t_list *phl, char *ob_con, char *act);
-void	ft_fully(t_list *phl);
-void	showme(t_list *list);
+void	prin(long t_rel, t_list *phl, char *act);
+void	ft_clean(t_list *phl);
+/* void	ft_fully(t_list *phl); */
 
 #endif

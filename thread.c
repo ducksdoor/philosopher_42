@@ -12,40 +12,37 @@
 
 #include "philosophers.h"
 
-/* static void	ft_wait(t_list *phl)
+void	ft_clean(t_list *phl)
 {
-	while (phl->next->philo->boolmtx == 1)
+	int	x;
+
+	x = 0;
+	pthread_mutex_destroy(phl->inf->printmutex);
+	while (x < phl->inf->nph)
 	{
-		usleep (20);
+		pthread_mutex_destroy(phl->philo->mutex);
+		pthread_detach(phl->philo->thread);
+		phl = phl->next;
+		x++;
 	}
-} */
-//
+}
 
 void	ft_select(t_list *phl, long int t_real)
 {
 	pthread_mutex_lock(phl->philo->mutex);
-	//printf("Puntero tenerdor%p\n", phl->philo->mutex);
-	//printf("Puntero tenerdor%p\n", phl->next->philo->mutex);
-	prin(t_real, phl, "tenedor", "uso");
+	prin(t_real, phl, "uso");
 	pthread_mutex_lock(phl->next->philo->mutex);
-	prin(t_real, phl, "tenedor del pana", "uso");
-/* 	block(phl, t_real); */
-	prin(t_real, phl, "", "comer");
+	printf("[%d]", phl->next->philo->name);
+	prin(t_real, phl, "uso");
+	prin(t_real, phl, "comer");
 	usleep(phl->inf->t_eat);
-	phl->philo->boolmtx = 0;
 	pthread_mutex_unlock(phl->philo->mutex);
-	phl->next->philo->boolmtx = 0;
 	pthread_mutex_unlock(phl->next->philo->mutex);
 	t_real = realtime(phl, "restore");
-	prin(t_real, phl, "", "dormir");
+	prin(t_real, phl, "dormir");
 	usleep(phl->inf->t_sleep);
 	phl->philo->need_eat--;
-	prin(t_real, phl, "", "pensar");
-/* 	if (phl->philo->need_eat == 0)
-	{
-		phl->inf->fully++;
-		phl->philo->need_eat--;
-	} */
+	prin(t_real, phl, "pensar");
 }
 
 void	*thread_ft(void *arg)
@@ -60,11 +57,13 @@ void	*thread_ft(void *arg)
 	while (phl->philo->need_eat > 0)
 		ft_select(phl, t_real);
 	if (phl->philo->need_eat == 0)
-		ft_fully(phl);
+	{
+		phl->inf->fully++;
+		phl->philo->need_eat--;
+	}
 	while (phl->inf->fully < phl->inf->nph)
+	{
 		ft_select(phl, t_real);
-	ft_exit("Todos los filos han comido", 2);
-/* 	pthread_mutex_destroy(phl->philo->mutex);
-	ft_exit("mutex destruido\n", 1); */
-	exit(1);
+	}
+	return (NULL);
 }

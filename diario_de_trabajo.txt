@@ -72,8 +72,9 @@
 	- el problema ahora esta en que comen hasta todas las veces que pueden menos una y se bloquean....
 22 de octubre 
 	- ya funciona y sin los boolianos... hago un comit con bolianos comentados para por si la lio, se va a llamar "seguridad"
+	- elimino tambien la función block porque no hace falta..
+	- ya esta todo terminado practicamente. fatan unas cositas que apunto en el todo. que seguramente sea inflarse a meter free porque me acabo de enterar que no se permite hacer exit pero bueno, la vida que es mas dura que comer verdura....
 	
-
 
 
 

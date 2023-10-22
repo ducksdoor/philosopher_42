@@ -26,5 +26,3 @@ void	segurity(int argc, char **argv)
 		x++;
 	}
 }
-
-		/* if (argc == 6 && argv[5] <= 0) */

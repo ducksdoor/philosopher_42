@@ -15,8 +15,8 @@
 long	ft_time(struct timeval start, struct timeval end)
 {
 	long	x;
-	long seconds_elapsed;
-	long microseconds_elapsed;
+	long	seconds_elapsed;
+	long	microseconds_elapsed;
 
 	seconds_elapsed = end.tv_sec - start.tv_sec;
 	microseconds_elapsed = end.tv_usec - start.tv_usec;
@@ -40,4 +40,3 @@ long	realtime(t_list *phl, char *status)
 		die(phl, t_real);
 	return (t_real);
 }
-

@@ -12,30 +12,26 @@
 
 #include "philosophers.h"
 
-void	prin(long t_rel, t_list *phl, char *ob_con, char *act)
+void	prin(long t_rel, t_list *phl, char *act)
 {
 	t_rel = realtime(phl, "normal");
 	if (phl->clock->t_juego >= phl->inf->t_die)
 		die(phl, t_rel);
 	pthread_mutex_lock(phl->inf->printmutex);
-	printf("\n \033[1;34m [%ld] \033[0m", t_rel);
-	printf("El filósofo numero: \033[1;33m%d\033[0m", phl->philo->name);
+	printf("\n \033[1;34m [[%ld]] \033[0m", t_rel);
+	printf("	\033[1;33m%d\033[0m", phl->philo->name);
 	if (0 == ft_strcmp("comer", act))
-		printf("\033[1;32m esta comiendo \033[0m \n");
+		printf("\033[1;32m is eating \033[0m \n");
 	if (0 == ft_strcmp("dormir", act))
-		printf(" \033[1;32m esta durmiendo \033[0m \n");
+		printf(" \033[1;36m is sleeping \033[0m \n");
 	if (0 == ft_strcmp("uso", act))
-		printf(" uso \033[1;32m %s \033[0m \n", ob_con);
-	if (0 == ft_strcmp("soltar", act))
-		printf(" solto\033[1;32m %s \033[0m \n", ob_con);
+		printf("\033[1;35m  has taken a fork \033[0m \n");
 	if (0 == ft_strcmp("pensar", act))
 	{
-		printf(" esta \033[1;32m pensando \033[0m");
-/* 		if (0 == ft_strcmp("limitado", ob_con)) */
+		printf("\033[1;31m is thinking\033[0m");
 		printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
-	printf("filosos llenos?? %d/%d\n", phl->inf->fully, phl->inf->nph);
-	printf("tiempo real = [%ld]\n", t_rel);
+	printf("%d/%d\n", phl->inf->fully, phl->inf->nph);
 	pthread_mutex_unlock(phl->inf->printmutex);
 }
 
@@ -45,11 +41,11 @@ void	ft_exit(char *texto, int fd)
 	exit(2);
 }
 
-void	ft_fully(t_list *phl)
+/* void	ft_fully(t_list *phl)
 {
 	phl->inf->fully++;
 	phl->philo->need_eat--;
-}
+} */
 
 void	die(t_list	*list, int x)
 {

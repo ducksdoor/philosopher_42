@@ -61,31 +61,3 @@ int	ft_strlen(char *s)
 		x++;
 	return (x);
 }
-
-
-void	block(t_list *phl, long t_real)
-{
-	while (1)
-	{
-		if (phl->philo->boolmtx == 0)
-		{
-			pthread_mutex_lock(phl->philo->mutex);
-			phl->philo->boolmtx = 1;
-			if (phl->next->philo->boolmtx == 0)
-			{
-				prin(t_real, phl, "tenedor", "uso");
-				pthread_mutex_lock(phl->next->philo->mutex);
-				phl->next->philo->boolmtx = 1;
-				prin(t_real, phl, "tenedor del pana", "uso");
-				return ;
-			}
-			else
-			{
-				pthread_mutex_unlock(phl->philo->mutex);
-				phl->philo->boolmtx = 0;
-			}
-		}
-		usleep(10);
-		t_real = realtime(phl, "normal");
-	}
-}

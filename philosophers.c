@@ -12,6 +12,32 @@
 
 #include "philosophers.h"
 
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	if (lst)
+	{
+		while (lst->next)
+				lst = lst->next;
+		return (lst);
+	}
+	return (NULL);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*temp;
+
+	if (!new)
+		return ;
+	temp = ft_lstlast(*lst);
+	if (temp)
+		temp->next = new;
+	else
+		*lst = new;
+}
+
 t_list	*create_list_ph(char **argv, t_list *phl, t_inf *inf)
 {
 	t_list			*philo;
@@ -67,13 +93,22 @@ int	main(int argc, char **argv)
 		phl = phl->next;
 		x++;
 	}
+	ft_clean(phl);
+	system("leaks -q philo");
 	ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
 }
 
 /* to do
 
+-leak: 1 por cada filo que creas (poniendo un exit se resuelve todo pero claro, una pena que no se puede )
+----te vas a inflar a frees
+-te ha explotado con 200 filosofos
+-no se mueren, hay que retocar eso...! y retocar la funcion en general
+
+
+
 ---->>>>>>>> limpieza de hilos cuando los filosofos mueren
----->>>>> filosofo que se esperan entre si cuando acaban de comer
+---->>>>> Ultimo mensaje, todos los filosofos han comido.
 --->>>> limpieza de hilos cuando se acaban l comida
 
 
