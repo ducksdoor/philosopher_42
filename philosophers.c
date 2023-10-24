@@ -38,7 +38,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 }
 
-t_list	*create_list_ph(char **argv, t_list *phl, t_inf *inf)
+void create_list_ph(char **argv, t_list **phl, t_inf *inf)
 {
 	t_list			*philo;
 	t_list			*xaus;
@@ -47,24 +47,20 @@ t_list	*create_list_ph(char **argv, t_list *phl, t_inf *inf)
 	philo = NULL;
 	xaus = NULL;
 	x = 1;
-	init(phl, argv, x, inf);
+	*phl = calloc(1, sizeof(t_list));
+	init(*phl, argv, x, inf);
 	while (x < ft_atoi(argv[1]))
 	{
 		x++;
 		philo = malloc(sizeof(t_list));
-		if (!philo)
-			return (NULL);
+		//if (!philo)
+		//	return (NULL);
 		init(philo, argv, x, inf);
-		if (phl == NULL)
-			phl = philo;
-		else
-			ft_lstadd_back(&phl, philo);
+		ft_lstadd_back(phl, philo);
 	}
-	xaus = ft_lstlast(phl);
-	xaus->next = philo;
-	if (xaus)
-		xaus->next = phl;
-	return (phl);
+	xaus = ft_lstlast(*phl);
+	xaus->next = *phl;
+	//return (phl);
 }
 
 int	main(int argc, char **argv)
@@ -75,7 +71,7 @@ int	main(int argc, char **argv)
 	int				x;
 
 	segurity(argc, argv);
-	printmutex = malloc(sizeof(pthread_mutex_t));
+	printmutex = malloc(sizeof(pthread_mutex_t)); // proteger malloc
 	if (pthread_mutex_init(printmutex, NULL) != 0)
 		ft_exit("no se creó un hilo", 2);
 	inf = malloc(sizeof(t_inf));
@@ -83,19 +79,21 @@ int	main(int argc, char **argv)
 		ft_exit("error malogarral", 2);
 	init_inf(inf, argv, printmutex);
 	x = 1;
-	phl = malloc(sizeof(t_list));
-	if (!phl)
-		ft_exit("error malogarral", 2);
-	phl = create_list_ph(argv, phl, inf);
+	//phl = malloc(sizeof(t_list));
+	phl = NULL;
+	//if (!phl)
+	//	ft_exit("error malogarral", 2);
+	create_list_ph(argv, &phl, inf);
 	while (x <= ft_atoi(argv[1]))
 	{
 		pthread_join(phl->philo->thread, NULL);
 		phl = phl->next;
 		x++;
 	}
-	ft_clean(phl);
-	system("leaks -q philo");
-	ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
+/* 	ft_data_clean(phl);
+	ft_clean(phl); */
+	//system("leaks -q philo");
+	//ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
 }
 
 /* to do

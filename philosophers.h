@@ -55,7 +55,7 @@ typedef struct s_philo
 
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-t_list	*create_list_ph(char **argv, t_list *phl, t_inf *inf);
+void create_list_ph(char **argv, t_list **phl, t_inf *inf);
 void	init(t_list *phl, char **argv, int x, t_inf *inf);
 void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *printmutex);
 void	segurity(int argc, char **argv);
@@ -71,7 +71,8 @@ void	die(t_list	*list, int x);
 long	ft_time(struct timeval start, struct timeval end);
 long	realtime(t_list *phl, char *status);
 void	prin(long t_rel, t_list *phl, char *act);
-void	ft_clean(t_list *phl);
+/* void	ft_clean(t_list *phl);
+void	ft_data_clean(t_list *phl); */
 /* void	ft_fully(t_list *phl); */
 
 #endif

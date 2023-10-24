@@ -9,7 +9,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g #-fsanitize=address -g
 
 SOURCE = philosophers.c utils.c utils_for_write.c \
 		 init.c segurity.c\
@@ -25,7 +25,7 @@ OBJS = ${SOURCE:.c=.o}
 all: ${NAME}
 	
 ${NAME}: ${OBJS}
-				@$(CC) $(CFLAGS) $(SOURCE) -o $(NAME)
+				@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 				@echo "\n$(GREEN) Created $(NAME) ✓$(DEF_COLOR)\n" 
 				@echo "    _       _       _" | lolcat
 				@echo " __(.)<  __(.)>  __(.)=    Cuak!"  | lolcat
@@ -42,10 +42,14 @@ fclean:
 
 re: fclean all 
 
-#thread: CFLAGS += -fsanitize=thread
-#thread: CFLAGS += -g3
-#thread: CFLAGS += -pthread
-#thread: re
+thread: CFLAGS += -fsanitize=thread
+thread: CFLAGS += -g3
+thread: CFLAGS += -pthread
+thread: re
+
+asan: CFLAGS += -fsanitize=address
+asan: CFLAGS += -g3
+asan: re
 
 
 .PHONY: all clean fclean re 

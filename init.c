@@ -25,15 +25,16 @@ void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *printmutex)
 
 void	init(t_list *phl, char **argv, int x, t_inf *inf)
 {
+	phl->next = NULL;
 	phl->inf = inf;
 	phl->philo = malloc(sizeof(t_philo));
 	phl->clock = malloc(sizeof(t_time));
 	phl->philo->name = x;
-	phl->philo->mutex = malloc(sizeof(pthread_mutex_t));
+	phl->philo->mutex = malloc(sizeof(pthread_mutex_t)); //proteger malloc
 	if (pthread_mutex_init(phl->philo->mutex, NULL) != 0)
 		ft_exit("no se pudo crear un tenedor", 2);
 	phl->philo->need_eat = -1;
-	phl->philo->thread = malloc(sizeof(pthread_t));
+	//phl->philo->thread = malloc(sizeof(pthread_t));
 	if (argv[5])
 		phl->philo->need_eat = ft_atoi(argv[5]);
 	if (0 != pthread_create(&phl->philo->thread, NULL, thread_ft, phl))

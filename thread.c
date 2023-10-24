@@ -11,10 +11,16 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+/* void	ft_data_clean(t_list *phl)
+{
+	free(phl->inf->printmutex);
+	free(phl->inf);
+}
 
 void	ft_clean(t_list *phl)
 {
-	int	x;
+	t_list	*aux;
+	int		x;
 
 	x = 0;
 	pthread_mutex_destroy(phl->inf->printmutex);
@@ -25,7 +31,14 @@ void	ft_clean(t_list *phl)
 		phl = phl->next;
 		x++;
 	}
-}
+	while (phl)
+	{
+		aux = phl;
+		free(phl->clock);
+		phl = phl->next;
+		free(aux);
+	}
+} */
 
 void	ft_select(t_list *phl, long int t_real)
 {
