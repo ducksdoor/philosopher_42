@@ -76,7 +76,13 @@
 	- ya esta todo terminado practicamente. fatan unas cositas que apunto en el todo. que seguramente sea inflarse a meter free porque me acabo de enterar que no se permite hacer exit pero bueno, la vida que es mas dura que comer verdura....
 24 de octubre :
 	- Vamos con la limpieza!!!!
-	
+26 de octubre : 
+	- toca limpiar limpiar limpiar limpiar porque el otro dia no hice nada...
+	- Esto es lo menos profesional que puedo hacer pero me da igual estoy contento porque he arreglado el codigo! o el codigo se ha arreglado solo, no lo se hahahahha ahora me esta dando data races! bueno, algo es algo !!!!!
+	- Por fin estoy limpiando los data-races y veo el fin del proyecto posible!
+	- Solucionando los dataraces se esta solucionando todo el codigo! ya casi no quedan.
+	- ya estan todos los data races!!!!! maravilla!! !! !! ! ! ! ! 
+	- ahora gestión de errores y tienes el proyecto terminado.
 
 
 

@@ -31,7 +31,7 @@ void	prin(long t_rel, t_list *phl, char *act)
 		printf("\033[1;31m is thinking\033[0m");
 		printf(" quedan\033[1;32m %d \033[0m comidas\n", phl->philo->need_eat);
 	}
-	printf("%d/%d\n", phl->inf->fully, phl->inf->nph);
+	//printf("%d/%d\n", phl->inf->fully, phl->inf->nph);
 	pthread_mutex_unlock(phl->inf->printmutex);
 }
 
@@ -51,7 +51,8 @@ void	die(t_list	*list, int x)
 {
 	printf("El filoso n [%d] ha muerto\n", list->philo->name);
 	printf("el tiempo de muerte es : %d\n", x);
-	pthread_mutex_destroy(list->philo->mutex);
-	ft_exit("un filosofo a muerto..", 1);
-	exit(1);
+	return ;
+	//pthread_mutex_destroy(list->philo->mutex);
+	//ft_exit("un filosofo a muerto..", 1);
+	//exit(1);
 }

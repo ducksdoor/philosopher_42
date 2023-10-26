@@ -38,7 +38,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 }
 
-void create_list_ph(char **argv, t_list **phl, t_inf *inf)
+void	create_list_ph(char **argv, t_list **phl, t_inf *inf)
 {
 	t_list			*philo;
 	t_list			*xaus;
@@ -47,19 +47,24 @@ void create_list_ph(char **argv, t_list **phl, t_inf *inf)
 	philo = NULL;
 	xaus = NULL;
 	x = 1;
-	*phl = calloc(1, sizeof(t_list));
+	*phl = malloc(sizeof(t_list));
 	init(*phl, argv, x, inf);
 	while (x < ft_atoi(argv[1]))
 	{
 		x++;
 		philo = malloc(sizeof(t_list));
-		//if (!philo)
-		//	return (NULL);
+		if (!philo)
+			return ;
 		init(philo, argv, x, inf);
+		pthread_mutex_lock(inf->printmutex);
 		ft_lstadd_back(phl, philo);
+		pthread_mutex_unlock(inf->printmutex);
 	}
-	xaus = ft_lstlast(*phl);
-	xaus->next = *phl;
+	pthread_mutex_lock(inf->printmutex);
+	ft_lstadd_back(&philo, *phl);
+	pthread_mutex_unlock(inf->printmutex);
+/* 	xaus = ft_lstlast(*phl);
+	xaus->next = *phl; */
 	//return (phl);
 }
 
@@ -79,10 +84,7 @@ int	main(int argc, char **argv)
 		ft_exit("error malogarral", 2);
 	init_inf(inf, argv, printmutex);
 	x = 1;
-	//phl = malloc(sizeof(t_list));
 	phl = NULL;
-	//if (!phl)
-	//	ft_exit("error malogarral", 2);
 	create_list_ph(argv, &phl, inf);
 	while (x <= ft_atoi(argv[1]))
 	{
@@ -90,10 +92,8 @@ int	main(int argc, char **argv)
 		phl = phl->next;
 		x++;
 	}
-/* 	ft_data_clean(phl);
-	ft_clean(phl); */
-	//system("leaks -q philo");
-	//ft_exit("\nEl programa se terminó con exito, todos los filos comieron\n", 1);
+	ft_data_clean(phl);
+	ft_clean(phl);
 }
 
 /* to do
