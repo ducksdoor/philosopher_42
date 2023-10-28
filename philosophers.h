@@ -28,7 +28,8 @@ typedef struct s_inf
 	int				t_eat;
 	int				t_sleep;
 	struct timeval	start;
-	pthread_mutex_t	*printmutex;
+	pthread_mutex_t	*stopmutex;
+	int				death;
 }					t_inf;
 
 typedef struct s_list
@@ -58,24 +59,25 @@ t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	create_list_ph(char **argv, t_list **phl, t_inf *inf);
 void	init(t_list *phl, char **argv, int x, t_inf *inf);
-void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *printmutex);
-void	segurity(int argc, char **argv);
+void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *stopmutex);
+int		segurity(int argc, char **argv);
+void	segurity_for_close(int x, char **argv, t_list *phl);
 void	ft_wait_for_start(t_list *phl);
 void	ft_wait_for_finish(t_list *phl, long t_real);
 int		ft_atoi(char *str);
 int		ft_strlen(char *s);
 int		ft_strcmp(const char *s1, const char *s2);
-void	ft_exit(char *texto, int fd);
+void	ft_exit(char *texto);
 void	ft_crono(void);
 void	*thread_ft(void *arg);
 void	ft_select(t_list *phl, long int t_real);
 void	eat(t_list *x, long t_real);
-void	die(t_list	*list, int x);
+void	die(t_list	*phl, long t_real);
 long	ft_time(struct timeval start, struct timeval end);
 long	realtime(t_list *phl, char *status);
 void	prin(long t_rel, t_list *phl, char *act);
 void	ft_clean(t_list *phl);
 void	ft_data_clean(t_list *phl);
-/* void	ft_fully(t_list *phl); */
+void	ft_fully(t_list *phl);
 
 #endif

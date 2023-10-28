@@ -12,40 +12,6 @@
 
 #include "philosophers.h"
 
-void	ft_wait_for_finish(t_list *phl, long t_real)
-{
-	int	x;
-
-	x = 0;
-	while (1)
-	{
-		ft_select(phl, t_real);
-		pthread_mutex_lock(phl->inf->printmutex);
-		if (phl->inf->fully == phl->inf->nph)
-			x = 1;
-		pthread_mutex_unlock(phl->inf->printmutex);
-		if (x == 1)
-			return ;
-	}
-}
-
-void	ft_wait_for_start(t_list *phl)
-{
-	int	x;
-
-	while (1)
-	{
-		pthread_mutex_lock(phl->inf->printmutex);
-		x = 0;
-		if (phl->inf->born == phl->inf->nph)
-			x = 1;
-		pthread_mutex_unlock(phl->inf->printmutex);
-		if (x == 1)
-			return ;
-		usleep(50);
-	}
-}
-
 int	ft_atoi(char *str)
 {
 	int	res;

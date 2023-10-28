@@ -83,6 +83,10 @@
 	- Solucionando los dataraces se esta solucionando todo el codigo! ya casi no quedan.
 	- ya estan todos los data races!!!!! maravilla!! !! !! ! ! ! ! 
 	- ahora gestión de errores y tienes el proyecto terminado.
-
-
+28 de octubre :
+	- Pues poca cosa se me ha dado hoy.
+	- son casi las 12 porque entre hablar y escalar se me ha ido el dia, sin embargo, es cierto que estoy 100% animado, estoy contento. friamente contento creo que es la expresión correcta
+	- el programa ya se cierra cuando un filo se muere, esta escrito con todos los colores posibles habidos y por existir asique esta feten de los fetenes....
+	- los filos se quedan pillados cuando son muchos e infinitos, no todas las veces al menos...
+	- Bueno, hemos arreglado unas cosa y roto otras, el bello arte de la progrmación
 

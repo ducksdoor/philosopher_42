@@ -78,7 +78,9 @@ int pthread_mutex_unlock(pthread_mutex_t *mutex);
 
 Se utiliza en programación multihilo para liberar o desbloquear la cerradura (lock).
 
+# Apuntes para entender el código en un futuro:
 
+   - La variable phl->inf->dead sirvio en un primer momento para saber si un filosofo esta muerto pero tambien sirve para ver si estan todos llenos, en cualquiera de los casos para la ejecución al completo.
 
 
 # Como plantearse el proyecto:
@@ -102,6 +104,7 @@ Se utiliza en programación multihilo para liberar o desbloquear la cerradura (l
  - LEAKS LEAKS Y MAS LEAKS.
 
 # Comandos Útiles:
+
 
 void leaks(void)
 {

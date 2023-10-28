@@ -56,63 +56,52 @@ void	create_list_ph(char **argv, t_list **phl, t_inf *inf)
 		if (!philo)
 			return ;
 		init(philo, argv, x, inf);
-		pthread_mutex_lock(inf->printmutex);
+		pthread_mutex_lock(inf->stopmutex);
 		ft_lstadd_back(phl, philo);
-		pthread_mutex_unlock(inf->printmutex);
+		pthread_mutex_unlock(inf->stopmutex);
 	}
-	pthread_mutex_lock(inf->printmutex);
+	pthread_mutex_lock(inf->stopmutex);
 	ft_lstadd_back(&philo, *phl);
-	pthread_mutex_unlock(inf->printmutex);
-/* 	xaus = ft_lstlast(*phl);
-	xaus->next = *phl; */
-	//return (phl);
+	pthread_mutex_unlock(inf->stopmutex);
 }
 
 int	main(int argc, char **argv)
 {
 	t_inf			*inf;
 	t_list			*phl;
-	pthread_mutex_t	*printmutex;
+	pthread_mutex_t	*stopmutex;
 	int				x;
 
-	segurity(argc, argv);
-	printmutex = malloc(sizeof(pthread_mutex_t)); // proteger malloc
-	if (pthread_mutex_init(printmutex, NULL) != 0)
-		ft_exit("no se creó un hilo", 2);
-	inf = malloc(sizeof(t_inf));
-	if (!inf)
-		ft_exit("error malogarral", 2);
-	init_inf(inf, argv, printmutex);
-	x = 1;
-	phl = NULL;
-	create_list_ph(argv, &phl, inf);
-	while (x <= ft_atoi(argv[1]))
+	x = segurity(argc, argv);
+	if (x == 1)
 	{
-		pthread_join(phl->philo->thread, NULL);
-		phl = phl->next;
-		x++;
+		stopmutex = malloc(sizeof(pthread_mutex_t)); // proteger malloc
+		if (pthread_mutex_init(stopmutex, NULL) != 0)
+			ft_exit("no se creó un hilo");
+		inf = malloc(sizeof(t_inf));
+		if (!inf)
+			ft_exit("error malogarral");
+		init_inf(inf, argv, stopmutex);
+		phl = NULL;
+		create_list_ph(argv, &phl, inf);
+		segurity_for_close(x, argv, phl);
 	}
-	ft_data_clean(phl);
-	ft_clean(phl);
 }
 
 /* to do
 
--leak: 1 por cada filo que creas (poniendo un exit se resuelve todo pero claro, una pena que no se puede )
-----te vas a inflar a frees
--te ha explotado con 200 filosofos
--no se mueren, hay que retocar eso...! y retocar la funcion en general
+
+
+---->>>>>>>> solo filosoofo que pasa? preguntar porque para mi esta bien pero porsiacaso.
+---->>>>>>>> Preguntar por el multiplicador de tiempo por la misma razón que la de los filos.
+---->>>>>>>> limpieza de hilos cuando los filosofos mueren porque da un pequeño fallo...
+------------------> leaks tienes un par porque liberas de mas!
+---->>>>>>>> los filosofos en modo infinito se quedan bloqueados.
 
 
 
----->>>>>>>> limpieza de hilos cuando los filosofos mueren
----->>>>> Ultimo mensaje, todos los filosofos han comido.
---->>>> limpieza de hilos cuando se acaban l comida
 
-
----> leaks? entender como se cierra todo sin leaks
-
----> Cerrar todos los hilos desde uno de ellos...
+---> 
 ---> 
 ---> 
 --->*/
