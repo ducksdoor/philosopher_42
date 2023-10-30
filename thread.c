@@ -61,9 +61,10 @@ void	ft_select(t_list *phl, long int t_real)
 	}
 	else
 	{
-		pthread_mutex_unlock(phl->philo->mutex);
-		t_real = realtime(phl, "normal");
-		usleep(1000);
+		while (1)
+		{
+			t_real = realtime(phl, "normal");
+		}
 	}
 }
 
