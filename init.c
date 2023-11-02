@@ -40,9 +40,4 @@ void	init(t_list *phl, char **argv, int x, t_inf *inf)
 	phl->philo->need_eat = -1;
 	if (argv[5])
 		phl->philo->need_eat = ft_atoi(argv[5]);
-	pthread_mutex_lock(phl->inf->stopmutex);
-	phl->inf->born++;
-	pthread_mutex_unlock(phl->inf->stopmutex);
-	if (0 != pthread_create(&phl->philo->thread, NULL, thread_ft, phl)) //--
-		return ;
 }

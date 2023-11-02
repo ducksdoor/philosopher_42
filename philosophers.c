@@ -12,32 +12,6 @@
 
 #include "philosophers.h"
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	if (lst)
-	{
-		while (lst->next)
-				lst = lst->next;
-		return (lst);
-	}
-	return (NULL);
-}
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*temp;
-
-	if (!new)
-		return ;
-	temp = ft_lstlast(*lst);
-	if (temp)
-		temp->next = new;
-	else
-		*lst = new;
-}
-
 void	create_list_ph(char **argv, t_list **phl, t_inf *inf)
 {
 	t_list			*philo;
@@ -65,42 +39,56 @@ void	create_list_ph(char **argv, t_list **phl, t_inf *inf)
 	pthread_mutex_unlock(inf->stopmutex);
 }
 
-int	main(int argc, char **argv)
+static t_list	*first_init_all(char **argv)
 {
 	t_inf			*inf;
 	t_list			*phl;
 	pthread_mutex_t	*stopmutex;
-	int				x;
 
-	x = segurity(argc, argv);
-	if (x == 1)
+	stopmutex = malloc(sizeof(pthread_mutex_t));
+	if (pthread_mutex_init(stopmutex, NULL) != 0)
+		printf("no se creó un hilo");
+	inf = malloc(sizeof(t_inf));
+	if (!inf)
+		printf("error malogarral");
+	init_inf(inf, argv, stopmutex);
+	phl = NULL;
+	create_list_ph(argv, &phl, inf);
+	return (phl);
+}
+
+int	main(int argc, char **argv)
+{
+	t_list	*phl;
+	int		bool_for_ok;
+
+	bool_for_ok = segurity(argc, argv);
+	if (bool_for_ok == 1)
 	{
-		stopmutex = malloc(sizeof(pthread_mutex_t)); // proteger malloc
-		if (pthread_mutex_init(stopmutex, NULL) != 0)
-			ft_exit("no se creó un hilo");
-		inf = malloc(sizeof(t_inf));
-		if (!inf)
-			ft_exit("error malogarral");
-		init_inf(inf, argv, stopmutex);
-		phl = NULL;
-		create_list_ph(argv, &phl, inf);
-		segurity_for_close(x, argv, phl);
+		phl = first_init_all(argv);
+		if (phl)
+		{
+			ft_create_thread(phl);
+			segurity_for_close(bool_for_ok, phl);
+		}
 	}
 }
 
 /* to do
 
+------>>>>>> 
 
+------>>>>>> proteger maloc, pero sin exit no va a crear problemas despues!?
 
----->>>>>>>> solo filosoofo que pasa? preguntar porque para mi esta bien pero porsiacaso.
----->>>>>>>> Preguntar por el multiplicador de tiempo por la misma razón que la de los filos.
----->>>>>>>> limpieza de hilos cuando los filosofos mueren porque da un pequeño fallo...
-------------------> leaks tienes un par porque liberas de mas!
+---->>>>>>>> Preguntar por el multiplicador de tiempo. modificar para no multiplicar por mil
 ---->>>>>>>> los filosofos en modo infinito se quedan bloqueados.
+-			--> en modo infinito tarda mucho en cerrar.
+--->>>>>>>>> crear usleep y comprobar muerte en sleep. (pasaria lo mismo si tarda mas en comer que el tiempo de morirse?)
 
 
 
 
+---->>>>>>>> 
 ---> 
 ---> 
 ---> 

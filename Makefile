@@ -9,11 +9,21 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -g #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -pthread  -fsanitize=address -g #-fsanitize=thread -g
+		
 
-SOURCE = philosophers.c utils.c utils_for_write.c \
-		 init.c segurity.c\
-		 thread.c sacar_tiempos.c
+SOURCE = philosophers.c  utils_for_write.c \
+		 init.c \
+		 thread.c sacar_tiempos.c \
+		 ft_sleep.c \
+		 diner/no_gluttony.c \
+		 action/philo_alone.c \
+		 action/take_and_eat.c \
+		 action/die.c \
+		 utils/segurity.c\
+		 utils/ft_fully.c \
+		 utils/utils.c \
+		 utils/ft_create_thread.c \
 
 %.o: %.c
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN)$< $(DEF_COLOR)"

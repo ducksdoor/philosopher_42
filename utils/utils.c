@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
 int	ft_atoi(char *str)
 {
@@ -60,4 +60,30 @@ int	ft_strlen(char *s)
 	while (s[x] != '\0')
 		x++;
 	return (x);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	if (lst)
+	{
+		while (lst->next)
+				lst = lst->next;
+		return (lst);
+	}
+	return (NULL);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*temp;
+
+	if (!new)
+		return ;
+	temp = ft_lstlast(*lst);
+	if (temp)
+		temp->next = new;
+	else
+		*lst = new;
 }

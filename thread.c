@@ -31,11 +31,9 @@ void	ft_clean(t_list *phl)
 		pthread_detach(phl->philo->thread);
 		aux = phl;
 		phl = phl->next;
-
 		free(aux->clock);
 		aux->clock = NULL;
 		free(aux);
-
 		if (phl == start)
 			return ;
 	}
@@ -44,60 +42,41 @@ void	ft_clean(t_list *phl)
 void	ft_select(t_list *phl, long int t_real)
 {
 	pthread_mutex_lock(phl->philo->mutex);
-	prin(t_real, phl, "uso");
-	if (phl->inf->nph > 1)
-	{
-		pthread_mutex_lock(phl->next->philo->mutex);
-		prin(t_real, phl, "uso");
-		prin(t_real, phl, "comer");
-		usleep(phl->inf->t_eat);
-		pthread_mutex_unlock(phl->philo->mutex);
-		pthread_mutex_unlock(phl->next->philo->mutex);
-		t_real = realtime(phl, "restore");
-		prin(t_real, phl, "dormir");
-		usleep(phl->inf->t_sleep);
-		phl->philo->need_eat--;
-		prin(t_real, phl, "pensar");
-	}
-	else
-	{
-		while (1)
-		{
-			t_real = realtime(phl, "normal");
-		}
-	}
+	take_and_eat(phl, t_real);
+	usleep(phl->inf->t_eat);
+	pthread_mutex_unlock(phl->philo->mutex);
+	pthread_mutex_unlock(phl->next->philo->mutex);
+	prin(t_real, phl, "dormir");
+	usleep(phl->inf->t_sleep);
+	prin(t_real, phl, "pensar");
 }
 
-static void	process(int x, t_list *phl, long t_real)
+static void	start_diner(t_list *phl, long t_real)
 {
-	while (phl->philo->need_eat > 0 && x == 0)
+	int	bool_for_deadh;
+
+	bool_for_deadh = 0;
+	if (phl->inf->nph == 1)
 	{
-		ft_select(phl, t_real);
-		pthread_mutex_lock(phl->inf->stopmutex);
-		if (phl->inf->death != 0)
-			x = 1;
-		pthread_mutex_unlock(phl->inf->stopmutex);
+		philo_alone(phl, t_real);
+		return ;
 	}
-	if (phl->philo->need_eat == 0 && x == 0)
+	bool_for_deadh = no_gluttony(phl, bool_for_deadh, t_real);
+	if (phl->philo->need_eat == 0 && bool_for_deadh == 0)
 		ft_fully(phl);
-	if (x == 0)
-		ft_wait_for_finish(phl, t_real);
+	if (bool_for_deadh == 0)
+		segurity_for_finish(phl, t_real);
 }
 
 void	*thread_ft(void *arg)
 {
 	long	t_real;
 	t_list	*phl;
-	int		x;
 
-	x = 0;
 	phl = arg;
-	usleep(150);
-	ft_wait_for_start(phl);
-	usleep(150);
-	if (phl->philo->name % 2 == 0)
-		usleep (150);
 	t_real = gettimeofday(&phl->clock->aux, NULL);
-	process(x, phl, t_real);
+	if (phl->philo->name % 2 == 0)
+		usleep (1600);
+	start_diner(phl, t_real);
 	return (NULL);
 }
