@@ -29,7 +29,7 @@ void	ft_create_thread(t_list *phl)
 	}
 	if (phl->inf->nph == 1)
 	{
-		if (0 != pthread_create(&phl->philo->thread, NULL, thread_ft, phl))
+		if (0 != pthread_create(&phl->philo->thread, NULL, philo_alone, phl))
 			return ;
 	}
 }

@@ -21,7 +21,6 @@
 
 typedef struct s_inf
 {
-	int				born;
 	int				fully;
 	int				nph;
 	int				t_die;
@@ -66,12 +65,12 @@ void	segurity_for_close(int x, t_list *phl);
 void	segurity_for_finish(t_list *phl, long t_real);
 void	init(t_list *phl, char **argv, int x, t_inf *inf);
 void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *stopmutex);
-void	philo_alone(t_list *phl, long t_real);
 void	take_and_eat(t_list *phl, long t_real);
 int		no_gluttony(t_list *phl, int bool_for_deadh, long t_real);
 void	ft_crono(void);
 void	*thread_ft(void *arg);
-void	ft_select(t_list *phl, long int t_real);
+void	*philo_alone(void *arg);
+void	ft_diner(t_list *phl, long int t_real);
 void	eat(t_list *x, long t_real);
 void	die(t_list	*phl, long t_real);
 long	ft_time(struct timeval start, struct timeval end);
@@ -81,6 +80,6 @@ void	ft_clean(t_list *phl);
 void	ft_data_clean(t_list *phl);
 void	ft_fully(t_list *phl);
 void	ft_create_thread(t_list *phl);
-void	ft_sleep(t_list *phl);
 
+void	ft_sleep(t_list *phl);
 #endif

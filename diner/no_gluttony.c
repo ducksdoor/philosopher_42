@@ -16,7 +16,7 @@ int	no_gluttony(t_list *phl, int bool_for_deadh, long t_real)
 {
 	while (phl->philo->need_eat > 0 && bool_for_deadh == 0)
 	{
-		ft_select(phl, t_real);
+		ft_diner(phl, t_real);
 		pthread_mutex_lock(phl->inf->stopmutex);
 		if (phl->inf->death != 0)
 		{

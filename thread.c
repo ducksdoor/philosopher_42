@@ -39,7 +39,7 @@ void	ft_clean(t_list *phl)
 	}
 }
 
-void	ft_select(t_list *phl, long int t_real)
+void	ft_diner(t_list *phl, long int t_real)
 {
 	pthread_mutex_lock(phl->philo->mutex);
 	take_and_eat(phl, t_real);
@@ -56,16 +56,12 @@ static void	start_diner(t_list *phl, long t_real)
 	int	bool_for_deadh;
 
 	bool_for_deadh = 0;
-	if (phl->inf->nph == 1)
-	{
-		philo_alone(phl, t_real);
-		return ;
-	}
 	bool_for_deadh = no_gluttony(phl, bool_for_deadh, t_real);
 	if (phl->philo->need_eat == 0 && bool_for_deadh == 0)
 		ft_fully(phl);
 	if (bool_for_deadh == 0)
 		segurity_for_finish(phl, t_real);
+	return ;
 }
 
 void	*thread_ft(void *arg)

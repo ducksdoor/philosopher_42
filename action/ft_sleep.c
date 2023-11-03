@@ -10,10 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
 void	ft_sleep(t_list *phl)
 {
-	if (!phl)
-		return;
+	long	dream;
+
+	dream = 0;
+	while (dream <= phl->inf->t_sleep)
+	{
+		return ;
+	}
 }

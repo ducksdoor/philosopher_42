@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
 void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *stopmutex)
 {
-	inf->born = 0;
 	inf->nph = ft_atoi(argv[1]);
 	inf->t_die = (ft_atoi(argv[2]));
 	inf->t_eat = (ft_atoi(argv[3]) * 1000);

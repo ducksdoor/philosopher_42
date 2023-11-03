@@ -12,12 +12,17 @@
 
 #include "../philosophers.h"
 
-void	philo_alone(t_list *phl, long t_real)
+void	*philo_alone(void *arg)
 {
+	long	t_real;
+	t_list	*phl;
+
+	phl = arg;
+	t_real = gettimeofday(&phl->clock->aux, NULL);
+
 	pthread_mutex_lock(phl->philo->mutex);
 	prin(t_real, phl, "uso");
 	while (phl->inf->death == 0)
-	{
 		t_real = realtime(phl, "normal");
-	}
+	return (NULL);
 }

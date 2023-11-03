@@ -85,7 +85,7 @@ int	main(int argc, char **argv)
 -			--> en modo infinito tarda mucho en cerrar.
 --->>>>>>>>> crear usleep y comprobar muerte en sleep. (pasaria lo mismo si tarda mas en comer que el tiempo de morirse?)
 
-
+-------->>>plantear un flag de infinito o no ... 
 
 
 ---->>>>>>>> 
