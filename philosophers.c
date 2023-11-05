@@ -74,22 +74,16 @@ int	main(int argc, char **argv)
 	}
 }
 
-/* to do
+/*
+
+to do
 
 ------>>>>>> 
 
 ------>>>>>> proteger maloc, pero sin exit no va a crear problemas despues!?
 
 ---->>>>>>>> Preguntar por el multiplicador de tiempo. modificar para no multiplicar por mil
----->>>>>>>> los filosofos en modo infinito se quedan bloqueados.
--			--> en modo infinito tarda mucho en cerrar.
---->>>>>>>>> crear usleep y comprobar muerte en sleep. (pasaria lo mismo si tarda mas en comer que el tiempo de morirse?)
 
--------->>>plantear un flag de infinito o no ... 
+--->>>>>>>>> ¿crear usleep para numeros redondos? y comprobar muerte en sleep. (pasaria lo mismo si tarda mas en comer que el tiempo de morirse?)
 
-
----->>>>>>>> 
----> 
----> 
----> 
---->*/
+*/

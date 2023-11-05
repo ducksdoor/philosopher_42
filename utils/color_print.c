@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_for_write.c                                  :+:      :+:    :+:   */
+/*   color_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lortega- <lortega-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
-void	prin(long t_rel, t_list *phl, char *act)
+void	color_print(long t_rel, t_list *phl, char *act)
 {
 	t_rel = realtime(phl, "normal");
 	pthread_mutex_lock(phl->inf->stopmutex);
-	if (phl->inf->death == 0  && phl->inf->fully != phl->inf->nph)
+	if (phl->inf->death == 0 && phl->inf->fully != phl->inf->nph)
 	{
 		printf("\n \033[1;34m [[%ld]] \033[0m", t_rel);
 		printf("	\033[1;33m%d\033[0m", phl->philo->name);
@@ -34,6 +34,3 @@ void	prin(long t_rel, t_list *phl, char *act)
 	}
 	pthread_mutex_unlock(phl->inf->stopmutex);
 }
-
-
-

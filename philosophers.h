@@ -52,6 +52,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*mutex;
 	int				need_eat;
+	long			t_real;
 }				t_philo;
 
 t_list	*ft_lstlast(t_list *lst);
@@ -62,24 +63,25 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	create_list_ph(char **argv, t_list **phl, t_inf *inf);
 int		segurity(int argc, char **argv);
 void	segurity_for_close(int x, t_list *phl);
-void	segurity_for_finish(t_list *phl, long t_real);
+void	segurity_for_finish(t_list *phl, int bool_for_dead, long t_real);
 void	init(t_list *phl, char **argv, int x, t_inf *inf);
 void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *stopmutex);
 void	take_and_eat(t_list *phl, long t_real);
-int		no_gluttony(t_list *phl, int bool_for_deadh, long t_real);
+int		no_gluttony(t_list *phl, int bool_for_dead, long t_real);
 void	ft_crono(void);
 void	*thread_ft(void *arg);
 void	*philo_alone(void *arg);
+void	start_diner(t_list *phl);
 void	ft_diner(t_list *phl, long int t_real);
 void	eat(t_list *x, long t_real);
 void	die(t_list	*phl, long t_real);
 long	ft_time(struct timeval start, struct timeval end);
 long	realtime(t_list *phl, char *status);
-void	prin(long t_rel, t_list *phl, char *act);
+void	color_print(long t_rel, t_list *phl, char *act);
 void	ft_clean(t_list *phl);
 void	ft_data_clean(t_list *phl);
 void	ft_fully(t_list *phl);
 void	ft_create_thread(t_list *phl);
 
-void	ft_sleep(t_list *phl);
+void	dream(int time, t_list *phl, long t_real);
 #endif

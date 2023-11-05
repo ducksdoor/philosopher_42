@@ -46,34 +46,28 @@ void	segurity_for_close(int x, t_list *phl)
 		pthread_join(phl->philo->thread, NULL);
 		phl = phl->next;
 		x++;
-/* 		if (phl->inf->death != 0)
-		{
-			ft_clean(phl);
-			return ;
-		} */
 	}
 	if (phl->inf->nph == 1)
 		pthread_join(phl->philo->thread, NULL);
 	ft_clean(phl);
 }
 
-void	segurity_for_finish(t_list *phl, long t_real)
+void	segurity_for_finish(t_list *phl, int bool_for_dead, long t_real)
 {
-	int	x;
-
-	x = 0;
-	while (1)
+	while (bool_for_dead == 0)
 	{
-		if (x == 0)
-			ft_diner(phl, t_real);
 		pthread_mutex_lock(phl->inf->stopmutex);
 		if (phl->inf->fully >= phl->inf->nph)
 		{
-			x = 1;
+			bool_for_dead = 1;
 			phl->inf->death++;
 		}
+		if (phl->inf->death != 0)
+			bool_for_dead = 1;
 		pthread_mutex_unlock(phl->inf->stopmutex);
-		if (x == 1)
+		if (bool_for_dead == 1)
 			return ;
+		if (bool_for_dead == 0)
+			ft_diner(phl, t_real);
 	}
 }

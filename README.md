@@ -102,9 +102,14 @@ Se utiliza en programación multihilo para liberar o desbloquear la cerradura (l
 
 # preguntas o pruebas típicas:
  - LEAKS LEAKS Y MAS LEAKS.
+ - Filosofos en versión impar siempre dan más problemas.
+ - Si un filosofo se duerme y tarda más en despertar que el tiempo de muerte, tendra que morirse antes de despertar
+ - todo el tema de data_races
 
 # Comandos Útiles:
 
+-fsanitize=address -g
+-fsanitize=thread -g
 
 void leaks(void)
 {

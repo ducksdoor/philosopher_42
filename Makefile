@@ -12,14 +12,16 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address -g #-fsanitize=thread -g
 		
 
-SOURCE = philosophers.c  utils_for_write.c \
-		 thread.c sacar_tiempos.c \
+SOURCE = philosophers.c \
+		 thread.c \
 		 diner/no_gluttony.c \
-		 action/ft_sleep.c \
 		 action/philo_alone.c \
 		 action/take_and_eat.c \
 		 action/die.c \
+		 action/sleep.c \
 		 utils/init.c \
+		 utils/sacar_tiempos.c \
+		 utils/color_print.c \
 		 utils/segurity.c\
 		 utils/ft_fully.c \
 		 utils/utils.c \

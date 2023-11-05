@@ -14,10 +14,10 @@
 
 void	take_and_eat(t_list *phl, long t_real)
 {
-	prin(t_real, phl, "uso");
+	color_print(t_real, phl, "uso");
 	pthread_mutex_lock(phl->next->philo->mutex);
-	prin(t_real, phl, "uso");
-	prin(t_real, phl, "comer");
+	color_print(t_real, phl, "uso");
+	color_print(t_real, phl, "comer");
 	phl->philo->need_eat--;
 	t_real = realtime(phl, "restore");
 }

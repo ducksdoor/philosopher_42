@@ -16,8 +16,8 @@ void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *stopmutex)
 {
 	inf->nph = ft_atoi(argv[1]);
 	inf->t_die = (ft_atoi(argv[2]));
-	inf->t_eat = (ft_atoi(argv[3]) * 1000);
-	inf->t_sleep = (ft_atoi(argv[4]) * 1000);
+	inf->t_eat = (ft_atoi(argv[3]));
+	inf->t_sleep = (ft_atoi(argv[4]));
 	inf->fully = 0;
 	inf->death = 0;
 	inf->stopmutex = stopmutex;
@@ -26,15 +26,20 @@ void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *stopmutex)
 
 void	init(t_list *phl, char **argv, int x, t_inf *inf)
 {
+	long	time_real;
+
 	phl->next = NULL;
 	phl->inf = inf;
 	phl->philo = malloc(sizeof(t_philo));
 	phl->clock = malloc(sizeof(t_time));
 	phl->philo->name = x;
+	time_real = gettimeofday(&phl->clock->aux, NULL);
+	phl->philo->t_real = time_real;
 	phl->philo->mutex = malloc(sizeof(pthread_mutex_t));
+
 	if (!phl->philo->mutex || !phl->clock || !phl->clock)
 		return ;
-	if (pthread_mutex_init(phl->philo->mutex, NULL) != 0) //---
+	if (pthread_mutex_init(phl->philo->mutex, NULL) != 0)
 		return ;
 	phl->philo->need_eat = -1;
 	if (argv[5])
