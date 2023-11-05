@@ -24,10 +24,8 @@ long	ft_time(struct timeval start, struct timeval end)
 	return (x);
 }
 
-long	realtime(t_list *phl, char *status)
+void	realtime(t_list *phl, char *status)
 {
-	long	t_real;
-
 	if (0 == ft_strcmp("restore", status))
 		gettimeofday(&phl->clock->aux, NULL);
 	if (0 == ft_strcmp("normal", status))
@@ -35,8 +33,9 @@ long	realtime(t_list *phl, char *status)
 		gettimeofday(&phl->clock->end, NULL);
 		phl->clock->t_juego = ft_time(phl->clock->aux, phl->clock->end);
 	}
-	t_real = ft_time(phl->inf->start, phl->clock->end);
+	phl->philo->t_real = ft_time(phl->inf->start, phl->clock->end);
+	pthread_mutex_lock(phl->inf->stopmutex);
 	if (phl->clock->t_juego >= phl->inf->t_die)
-		die(phl, t_real);
-	return (t_real);
+		die(phl);
+	pthread_mutex_unlock(phl->inf->stopmutex);
 }

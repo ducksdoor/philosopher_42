@@ -26,22 +26,27 @@ void	init_inf(t_inf *inf, char **argv, pthread_mutex_t *stopmutex)
 
 void	init(t_list *phl, char **argv, int x, t_inf *inf)
 {
-	long	time_real;
-
 	phl->next = NULL;
 	phl->inf = inf;
 	phl->philo = malloc(sizeof(t_philo));
 	phl->clock = malloc(sizeof(t_time));
-	phl->philo->name = x;
-	time_real = gettimeofday(&phl->clock->aux, NULL);
-	phl->philo->t_real = time_real;
-	phl->philo->mutex = malloc(sizeof(pthread_mutex_t));
-
-	if (!phl->philo->mutex || !phl->clock || !phl->clock)
-		return ;
-	if (pthread_mutex_init(phl->philo->mutex, NULL) != 0)
-		return ;
-	phl->philo->need_eat = -1;
-	if (argv[5])
-		phl->philo->need_eat = ft_atoi(argv[5]);
+	if (!phl->philo || phl->clock)
+	{
+		free (phl->inf->stopmutex);
+		free (phl->inf);
+		free (phl->philo);
+		free (phl->clock);
+	}
+	else
+	{
+		phl->philo->name = x;
+		phl->philo->mutex = malloc(sizeof(pthread_mutex_t));
+		if (!phl->philo->mutex || !phl->clock || !phl->clock)
+			return ;
+		if (pthread_mutex_init(phl->philo->mutex, NULL) != 0)
+			return ;
+		phl->philo->need_eat = -1;
+		if (argv[5])
+			phl->philo->need_eat = ft_atoi(argv[5]);
+	}
 }

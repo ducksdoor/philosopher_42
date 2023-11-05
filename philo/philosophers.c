@@ -77,13 +77,5 @@ int	main(int argc, char **argv)
 /*
 
 to do
-
------->>>>>> 
-
 ------>>>>>> proteger maloc, pero sin exit no va a crear problemas despues!?
-
----->>>>>>>> Preguntar por el multiplicador de tiempo. modificar para no multiplicar por mil
-
---->>>>>>>>> ¿crear usleep para numeros redondos? y comprobar muerte en sleep. (pasaria lo mismo si tarda mas en comer que el tiempo de morirse?)
-
 */

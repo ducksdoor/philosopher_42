@@ -12,9 +12,29 @@
 
 #include "../philosophers.h"
 
+static int	ft_isdigit(char *argvx)
+{
+	int	x;
+
+	x = 0;
+	while (argvx[x] == 32)
+		x++;
+	if (argvx[x] == 43)
+		x++;
+	while (argvx[x] != '\0')
+	{
+		if (argvx[x] >= 48 && argvx[x] <= 57)
+			x++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 int	segurity(int argc, char **argv)
 {
 	int	x;
+	int	bool;
 
 	x = 1;
 	if (argc != 5 && argc != 6)
@@ -29,7 +49,8 @@ int	segurity(int argc, char **argv)
 	}
 	while (x < argc)
 	{
-		if (ft_atoi(argv[x]) <= 0)
+		bool = ft_isdigit(argv[x]);
+		if (ft_atoi(argv[x]) <= 0 || bool == 0)
 		{
 			printf("Valor incorrecto\n");
 			return (2);
@@ -52,7 +73,7 @@ void	segurity_for_close(int x, t_list *phl)
 	ft_clean(phl);
 }
 
-void	segurity_for_finish(t_list *phl, int bool_for_dead, long t_real)
+void	segurity_for_finish(t_list *phl, int bool_for_dead)
 {
 	while (bool_for_dead == 0)
 	{
@@ -68,6 +89,6 @@ void	segurity_for_finish(t_list *phl, int bool_for_dead, long t_real)
 		if (bool_for_dead == 1)
 			return ;
 		if (bool_for_dead == 0)
-			ft_diner(phl, t_real);
+			ft_diner(phl);
 	}
 }
