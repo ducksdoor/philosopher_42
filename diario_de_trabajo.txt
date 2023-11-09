@@ -97,3 +97,7 @@
 	- bien, has solucionado la parte de que se mueran y termine el programa cuando las comidas son limitadas pero no pasa lo mismo cuando las comidas son muchas....
 	- ya funcionan varias cosas del cierre, he seguido cambiando nombres como para que este más ordenado asique eso perfecto, me queda nada! lo unico que cuando es un numero inpar de filosofos son medio tontos 
 	- Esta Parseado. acepta espacios y los +, le faltaria solo la protección de los malloc 
+8 de Noviembre :
+	- Aunque ya es la una de la mañana, he conseguido terminar/limpiar el proyecto. asique mañana o dentro de un rato lo entregare para corregir (He ecuchado que mañana vendra mazo de gente a corregir, asique mi dia libre de curro se lo dedicare a esto a ver que tal, yo creo que  bien la verdad!)
+	- Hoy he creado tooodos los returns posibles de cosas que puedan romper y en caso de que rompan, se va del programa sin dejar basura, un poco rollo el hacerlo al final, creo que tenia que haberlo ido haciendo poco a poco y así no me pasaba todo el día con ello. Lección aprendida! 
+	HASTAMAÑANA! 

@@ -60,7 +60,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 int		ft_atoi(char *str);
 int		ft_strlen(char *s);
 int		ft_strcmp(const char *s1, const char *s2);
-void	create_list_ph(char **argv, t_list **phl, t_inf *inf);
 int		segurity(int argc, char **argv);
 void	segurity_for_close(int x, t_list *phl);
 void	segurity_for_finish(t_list *phl, int bool_for_dead);
@@ -82,6 +81,9 @@ void	ft_clean(t_list *phl);
 void	ft_data_clean(t_list *phl);
 void	ft_fully(t_list *phl);
 void	ft_create_thread(t_list *phl);
-
+void	ft_free(char *str, void *liberty);
+void	ft_putstr(char *s);
+void	ft_select_free(char *str, void *liberty, void *moreliberty);
+void	ft_big_free(t_list *phl);
 void	dream(int time, t_list *phl);
 #endif

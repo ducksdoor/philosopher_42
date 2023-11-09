@@ -27,6 +27,7 @@ SOURCE = philosophers.c \
 		 utils/utils.c \
 		 utils/ft_create_thread.c \
 		 utils/ft_clean.c \
+		 utils/ft_free.c \
 
 %.o: %.c
 				@echo "${BLUE} ◎ $(YELLOW)Compiling   ${RED}→   $(GREEN)$< $(DEF_COLOR)"

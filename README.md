@@ -1,6 +1,17 @@
 # philosopher_42
 En este proyecto no voy a dejar guia como tal, os dejo la documentación por si a alguien le puede ser útil y alguna que otra explicación.
 
+![badge42](https://github.com/ducksdoor/pipex_42/assets/128644496/766bc96f-5dca-407e-a5f8-d2455489b1b4)
+
+“Cualquier idiota puede escribir un programa que una computadora entiende, los verdaderos programadores pueden escribir código que los humanos entienden.” – Martin Fowler
+
+
+- [funciones permitidas](#-funciones-permitidas)
+- [Como plantearse el proyecto](#-Como-plantearse-el-proyecto)
+- [preguntas o pruebas típicas](#-preguntas-o-pruebas-típicas)
+- [Comandos Útiles](#-Comandos-Útiles)
+
+
 # funciones permitidas:
 
 __usleep()__
@@ -83,28 +94,58 @@ Se utiliza en programación multihilo para liberar o desbloquear la cerradura (l
    - La variable phl->inf->dead sirvio en un primer momento para saber si un filosofo esta muerto pero tambien sirve para ver si estan todos llenos, en cualquiera de los casos para la ejecución al completo.
 
 
+
+
+
+
+
+
+
 # Como plantearse el proyecto:
 
 0 comprobación de errores de los argumentos:
- - que no tenga suficientes argumentos o demasiados.
- - que tenga números negativos o ceros.
- - que todo sean números y no letras.
-   
+ - Que no tenga suficientes argumentos o demasiados.
+ - Que tenga números negativos o ceros.
+ - Que todo sean números y no letras. (Que no tenga letras entre los numeros)
+ - Que acepte  un solo signo positivo pero no signos negativos negativos.
+ - Que admita espacios.
 
 1 crea una lista de los filosofos. En mi ejecución, cada hilo tiene su propia lista con todos los datos necesarios para el proceso.
 
  - La lista de filosofos es circular, es decir, el último filosofo apunta al primero
 
-2 Los filosofos intentan comer, todos a la vez, gracias a los boolianos, los hilos no se quedan bloqueados de forma infinita cuando no pueden bloquear el mutex del compañero, ademas, tengo tambien bloqueado el printf para que no puedan pisarse los unos a los otros.
+2 Crea un sistema de cronometraje para ver como pasa el tiempo.
 
-3 En el momento en que un filosofo muera o todos los filosofos coman lo necesario, empezamos con la limpieza. 
+3 Los filosofos intentan comer, todos a la vez. Los hilos no se quedaran bloqueados de forma infinita hasta que consigan acceder al mutex que quieren bloquear, de tal forma que si estos mutrex no son liberados, nunca dejaran de intentar bloquearlos... Si se intenta bloquear un hilo que no existe se creara un comportamiento indefinido. Ademas de los que llamaremos tenedor, tendremos tambien que bloquear el printf para que no se escriban mensajes encima de los mensajes de los demas.
+
+ - Dicho esto abra que conseguir que coman en relativo orden, unas de las ayudas/ideas que vienen muy bien serian : 
+   - Crear todos los filosofos y en ese momento que empiecen a comer, algo asi como un pistoletazo de salida.
+   - Hacer que los filosofos pares (por ejemplo) coman despues que los impares (así no se molestaran entre ellos)
+   - Limpieza de todas las cosas que tengas abiertas cuando los programas se acaben.
+
+4 En el momento en que un filosofo muera o todos los filosofos coman lo necesario, se acabara el programa.
+
+
+
+
 
 
 # preguntas o pruebas típicas:
  - LEAKS LEAKS Y MAS LEAKS.
+ - todo el tema de data_races.
  - Filosofos en versión impar siempre dan más problemas.
- - Si un filosofo se duerme y tarda más en despertar que el tiempo de muerte, tendra que morirse antes de despertar
- - todo el tema de data_races
+ - Si un filosofo se duerme y tarda más en despertar que el tiempo de muerte, tendra que morirse antes de despertar y pasa lo mismo mientras esta comiendo.
+ - Comprobar que no existen variables estaticas.
+ - Comprobar que ha programado cuando solo hay un filosofo.
+ - Aunque lo dice en la hoja de correcciones probar las versiones infinitas y las finitas.
+ - Todos los filosofos tienen que comer tantas veces como se le indique en los datos del inicio del programa. no que solo un filosofo lo haga.
+ - Comprobar que no existan funciones prohibidas como exit y que el parseo este relativamente bien. Aunque no sea un proyecto de parsear cosas. En todos los programas hay que parsear cosas.
+ 
+
+
+
+
+
 
 # Comandos Útiles:
 

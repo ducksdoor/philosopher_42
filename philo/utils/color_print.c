@@ -19,7 +19,7 @@ void	color_print(t_list *phl, char *act)
 	if (phl->inf->death == 0 && phl->inf->fully != phl->inf->nph)
 	{
 		printf("\n \033[1;34m [[%ld]] \033[0m", phl->philo->t_real);
-		printf("	\033[1;33m%d\033[0m", phl->philo->name);
+		printf(" \033[1;33m%d\033[0m", phl->philo->name);
 		if (0 == ft_strcmp("comer", act))
 			printf("\033[1;32m is eating \033[0m \n");
 		if (0 == ft_strcmp("dormir", act))

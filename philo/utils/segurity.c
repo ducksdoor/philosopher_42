@@ -39,12 +39,12 @@ int	segurity(int argc, char **argv)
 	x = 1;
 	if (argc != 5 && argc != 6)
 	{
-		printf("Número incorrecto de argumentos\n");
+		ft_putstr("Incorrect number of arguments.");
 		return (2);
 	}
 	if (ft_atoi(argv[1]) > 200)
 	{
-		printf("Nº de filosofos maximo 200\n");
+		ft_putstr("Number of philosophers maximum 200.");
 		return (2);
 	}
 	while (x < argc)
@@ -52,7 +52,7 @@ int	segurity(int argc, char **argv)
 		bool = ft_isdigit(argv[x]);
 		if (ft_atoi(argv[x]) <= 0 || bool == 0)
 		{
-			printf("Valor incorrecto\n");
+			ft_putstr("incorrect value.");
 			return (2);
 		}
 		x++;
