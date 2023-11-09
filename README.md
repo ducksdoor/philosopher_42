@@ -140,7 +140,7 @@ Se utiliza en programación multihilo para liberar o desbloquear la cerradura (l
  - Aunque lo dice en la hoja de correcciones probar las versiones infinitas y las finitas.
  - Todos los filosofos tienen que comer tantas veces como se le indique en los datos del inicio del programa. no que solo un filosofo lo haga.
  - Comprobar que no existan funciones prohibidas como exit y que el parseo este relativamente bien. Aunque no sea un proyecto de parsear cosas. En todos los programas hay que parsear cosas.
- 
+ - Prueba esto : ./philo 4 300 250 200 1 (deberia terminar cuando coman todos y no morir, aunque la prueba va muy justa...)
 
 
 

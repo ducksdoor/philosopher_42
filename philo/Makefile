@@ -9,12 +9,11 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address -g #-fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
 		
 
 SOURCE = philosophers.c \
 		 thread.c \
-		 diner/no_gluttony.c \
 		 action/philo_alone.c \
 		 action/take_and_eat.c \
 		 action/die.c \

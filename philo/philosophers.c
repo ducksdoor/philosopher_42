@@ -85,9 +85,3 @@ int	main(int argc, char **argv)
 		segurity_for_close(bool_for_ok, phl);
 	}
 }
-
-
-/* to do 
-
-
-terminar de cerrar bien cuando todos coman.*/

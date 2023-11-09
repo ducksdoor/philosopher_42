@@ -16,7 +16,6 @@ void	ft_diner(t_list *phl)
 {
 	pthread_mutex_lock(phl->philo->mutex);
 	take_and_eat(phl);
-	dream(phl->inf->t_eat, phl);
 	pthread_mutex_unlock(phl->philo->mutex);
 	pthread_mutex_unlock(phl->next->philo->mutex);
 	color_print(phl, "dormir");
@@ -24,29 +23,44 @@ void	ft_diner(t_list *phl)
 	color_print(phl, "pensar");
 }
 
-void	start_diner(t_list *phl)
+int	no_gluttony(t_list *phl, int bool_for_dead)
 {
-	int	bool_for_dead;
-
-	bool_for_dead = 0;
-	bool_for_dead = no_gluttony(phl, bool_for_dead);
-	if (phl->philo->need_eat == 0 && bool_for_dead == 0)
-		ft_fully(phl);
+	while (phl->philo->need_eat > 0 && bool_for_dead == 0)
+	{
+		ft_diner(phl);
+		pthread_mutex_lock(phl->inf->stopmutex);
+		if (phl->inf->death != 0)
+			bool_for_dead = 1;
+		pthread_mutex_unlock(phl->inf->stopmutex);
+	}
 	if (bool_for_dead == 0)
+	{
 		segurity_for_finish(phl, bool_for_dead);
-	return ;
+	}
+	return (0);
 }
 
 void	*thread_ft(void *arg)
 {
+	int		bool_for_dead;
 	long	time_real;
 	t_list	*phl;
 
+	bool_for_dead = 0;
 	phl = arg;
 	time_real = gettimeofday(&phl->clock->aux, NULL);
 	phl->philo->t_real = time_real;
 	if (phl->philo->name % 2 == 0)
 		usleep(1600);
-	start_diner(phl);
+	while (bool_for_dead == 0 && phl->philo->need_eat < 0)
+	{
+		ft_diner(phl);
+		pthread_mutex_lock(phl->inf->stopmutex);
+		if (phl->inf->death != 0)
+			bool_for_dead = 1;
+		pthread_mutex_unlock(phl->inf->stopmutex);
+	}
+	if (phl->philo->need_eat > 0)
+		bool_for_dead = no_gluttony(phl, bool_for_dead);
 	return (NULL);
 }

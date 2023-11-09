@@ -18,6 +18,9 @@ void	take_and_eat(t_list *phl)
 	pthread_mutex_lock(phl->next->philo->mutex);
 	color_print(phl, "uso");
 	color_print(phl, "comer");
-	phl->philo->need_eat--;
 	realtime(phl, "restore");
+	dream(phl->inf->t_eat, phl);
+	phl->philo->need_eat--;
+	if (phl->philo->need_eat == 0)
+		ft_fully(phl);
 }

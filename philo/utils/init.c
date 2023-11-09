@@ -37,6 +37,7 @@ void	init(t_list *phl, char **argv, int x, t_inf *inf)
 		ft_big_free(phl);
 	else
 	{
+		phl->philo->fat = 1;
 		phl->philo->name = x;
 		if (pthread_mutex_init(phl->philo->mutex, NULL) != 0)
 		{

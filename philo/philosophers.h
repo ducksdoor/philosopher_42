@@ -53,8 +53,10 @@ typedef struct s_philo
 	pthread_mutex_t	*mutex;
 	int				need_eat;
 	long			t_real;
+	int				fat;
 }				t_philo;
 
+/* void	ft_wait(t_list *phl); */
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 int		ft_atoi(char *str);
@@ -70,7 +72,6 @@ int		no_gluttony(t_list *phl, int bool_for_dead);
 void	ft_crono(void);
 void	*thread_ft(void *arg);
 void	*philo_alone(void *arg);
-void	start_diner(t_list *phl);
 void	ft_diner(t_list *phl);
 void	eat(t_list *x, long t_real);
 void	die(t_list *phl);

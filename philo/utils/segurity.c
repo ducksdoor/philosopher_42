@@ -83,8 +83,6 @@ void	segurity_for_finish(t_list *phl, int bool_for_dead)
 			bool_for_dead = 1;
 			phl->inf->death++;
 		}
-		if (phl->inf->death != 0)
-			bool_for_dead = 1;
 		pthread_mutex_unlock(phl->inf->stopmutex);
 		if (bool_for_dead == 1)
 			return ;

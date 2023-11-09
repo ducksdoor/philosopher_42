@@ -17,5 +17,5 @@ void	ft_fully(t_list *phl)
 	pthread_mutex_lock(phl->inf->stopmutex);
 	phl->inf->fully++;
 	pthread_mutex_unlock(phl->inf->stopmutex);
-	phl->philo->need_eat--;
+	phl->philo->fat = 2;
 }
