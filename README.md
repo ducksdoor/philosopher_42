@@ -131,16 +131,53 @@ Se utiliza en programación multihilo para liberar o desbloquear la cerradura (l
 
 
 # preguntas o pruebas típicas:
- - LEAKS LEAKS Y MAS LEAKS.
- - todo el tema de data_races.
- - Filosofos en versión impar siempre dan más problemas.
- - Si un filosofo se duerme y tarda más en despertar que el tiempo de muerte, tendra que morirse antes de despertar y pasa lo mismo mientras esta comiendo.
- - Comprobar que no existen variables estaticas.
- - Comprobar que ha programado cuando solo hay un filosofo.
- - Aunque lo dice en la hoja de correcciones probar las versiones infinitas y las finitas.
- - Todos los filosofos tienen que comer tantas veces como se le indique en los datos del inicio del programa. no que solo un filosofo lo haga.
+
+Segun el subject las pruebas con más de 200 filósofos no se deben realizar, asi que puedes directamente programar que tu código no acepte mas de 200 filosofos como parametro, ademas, no puedes realizar pruebas con time_to_die, time_to_eat o time_to_sleep establecidos en valores inferiores a 60 milisegundos.
+
+- Antes de las pruebas podran hacerte preguntas del proyecto, deberas estar capacitado para responder a todas:
+     + ¿Que es un hilo?
+     + ¿Diferencias entre hilos e hijos?
+     + ¿Que es y como funciona un Mutex?
+     + ¿Que pasa si un mutex no se cierra correctamente?
+     + 
+
+
+ - Si o SI teneis que hacer estas pruebas, *EN SERIO, SON IMPORTANTES* y comprobar que vuestro proyecto funciona perfectamente, si estos casos fallan, suspendereis:
+
+Prueba 1 800 200 200. El filósofo no debe comer y debe morir. (🧟‍♂️ Ademas debera morirse. Esto comprueba que exista solo un filoso🧟‍♀️ )
+Prueba 5 800 200 200. Ningún filósofo debería morir. (🦉 Concretamente si no pasa esta prueba, no entregues el proyecto. Prueba a meter los 200 filosofos a ver si funciona bien. 🦉) 
+Prueba 5 800 200 200 7. Ningún filósofo debería morir y la simulación debería detenerse cuando cada filósofo haya comido al menos 7 veces. (Es decir. Los cinco filosofos del ejemplo tienen que comer 7 veces como minimo. No uno 7 y el resto 6)
+Prueba 4 410 200 200. Ningún filósofo debería morir. (Realmente si le metes 200 tampoco deberia morirse...)
+Prueba 4 310 200 100. Debería morir un filósofo. (💀 Ademas deberia morirse rápido 💀)
+Realizar pruebas con 2 filósofos y verificar los diferentes tiempos: una muerte con un retraso de más de 10 ms es inaceptable. 
+
+Estas son las pruebas que si o si os van a hacer. Ahora os dejo una pequeña lista de pruebas que podrian machacaros. Asegurarse de que los filósofos mueran en el momento adecuado, que no roben tenedores...
+
+LEAKS LEAKS Y MAS LEAKS.
+  + (Si lanzas el programa con esto -fsanitize=address -g no tendria que dar fallos.)
+  + Puedes usar esta llamada tambien void leaks(void)
+  {
+      system("leaks -q a.philo"); 
+  }
+Todo el tema de DATA_RACES. 
+  +  Para eso podemos ejecutar esto en el makefile:  -fsanitize=thread -g
+
+ - Filosofos en versión impar siempre dan más problemas. Hay que hacer muchas pruebas con los impares pues puede ser que esto de problemas...
+   
+ Prueba 4 400 200 600. Tambien puedes probar 4 400 800 200 ( 😴 Si un filosofo se duerme y tarda más en despertar que el tiempo de muerte, tendra que morirse antes de despertar y pasa lo mismo mientras esta comiendo.) 
+ 
+ - Comprobar que no existen variables estaticas. Realmente al pasar la norminette te chivara si hay o no variables estáticas.
+
+ - Aunque lo dice en la hoja de correcciones probar las versiones infinitas y las finitas. sobretodo cuando hay muchos filósofos. Hay que tener en cuenta que el tiempo que pasan los hilos corriendo, el tiempo que imprimen va a ir subiendo. Estaria mal si un filosofo imprime cosas con un numero superior antes que un filosofo con un número mayor. Te pongo un ejemplo, si un filosofo come a 100. Ya no se podra pintar nada en pantalla que ocurriera antes, como un filosofo que como a 80 o variedades.
+   
+ - Lo último que se imprima en pantalla tiene que ser que un filósofo a muerto o que un filósofo ha comido.
+  
  - Comprobar que no existan funciones prohibidas como exit y que el parseo este relativamente bien. Aunque no sea un proyecto de parsear cosas. En todos los programas hay que parsear cosas.
- - Prueba esto : ./philo 4 300 250 200 1 (deberia terminar cuando coman todos y no morir, aunque la prueba va muy justa...)
+
+
+ - Para nota: 
+
+   + Prueba esto ; ./philo 4 300 250 200 1 (el programa deberia terminar cuando coman todos y no morir, aunque la prueba va muy justa, si despues de comer sigue ejecutandose el programa y se ve la muerte del filosofo, estará mal. )
 
 
 
