@@ -64,8 +64,7 @@
 	- bueno, ya esta todo rectificado, ahora se vuelven a bloquear... pero supongo que antes estaba mal, que se le va a hacer.
 	- vuelven a chocarse entre ellos...
 	- poco a poco, mañana sera otro dia! al menos has restructurado las listas...
-20 de octubre
-	- Dias rartos, me he cargado mi programa y me he quedado sin pareja, que maravilla.
+20 de octubr
 	- funcionan! voy a subir este mal o bien un git para tener la version! estara con el comit -m restore! 
 21 de octubre
 	- parece que el código va tomando forma de nuevo, al estar todo medio construido es como poner masilla a unas ruinas, por tanto, hemos descubierto que es mas facil reconstruir algo que esta en ruinas .... o eso dicen aahahaha
